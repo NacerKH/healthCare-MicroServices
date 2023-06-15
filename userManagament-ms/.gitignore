@@ -1,0 +1,4 @@
+node_modules
+./complaint-ms/node_modules
+./gatway-ms/node_modules
+./userManagament-ms/node_modules

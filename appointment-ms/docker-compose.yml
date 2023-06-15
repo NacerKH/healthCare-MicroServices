@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+ medest-appoinement-ms :
+      build : 
+         context : .
+         dockerfile : Dockerfile
+      image : node:lastest
+      container_name: medest-appoinement
+      restart : always 
+      stdin_open: true 
+      tty : true
+      command : /usr/src/app/node_modules/.bin/nodemon server.js
+      volumes :
+        - ./:/usr/src/app
+        - /usr/src/app/node_modules
+      ports :
+       - "5011:5000"
+      depends_on:
+       - mongodb
+      env_file : ./config/.env
+
+ appoinement-db:
+       image : mongo:latest
+       container_name :  appoinement-db
+       restart : always 
+       volumes :
+        - dbdata:/data/db
+       ports:
+        - "27020:27017"
+       
+networks:
+    app-network:
+       driver : bridge
+volumes:
+     dbdata :
+        driver : local   
+       
+         

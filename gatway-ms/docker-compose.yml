@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  medest-gatway-ms :
+      build : 
+         context : .
+         dockerfile : Dockerfile
+      image : node:lastest
+      container_name: medest-gatway-ms
+      restart : always 
+      stdin_open: true 
+      tty : true
+      command : /usr/src/app/node_modules/.bin/nodemon server.js
+      volumes :
+        - ./:/usr/src/app
+        - /usr/src/app/node_modules
+      ports :
+       - "5010:5000"
+      depends_on:
+       - mongodb-gatway-ms
+      env_file : ./config/.env
+
+  mongodb-gatway-ms:
+       image : mongo:latest
+       container_name : mongodb-gatway-ms
+       restart : always 
+       volumes :
+        - dbdata:/data/db
+       ports:
+        - "27019:27017"
+       
+networks:
+    app-network:
+       driver : bridge
+volumes:
+     dbdata :
+        driver : local   
+       
+         

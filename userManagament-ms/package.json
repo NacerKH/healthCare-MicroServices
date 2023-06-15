@@ -1,0 +1,27 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "this project foir reminder simple crud and middleware",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "crud"
+  ],
+  "author": "Naser & firas",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.15.0",
+    "mongodb": "^5.0.1",
+    "mongoose": "^6.9.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^2.0.20"
+  }
+}

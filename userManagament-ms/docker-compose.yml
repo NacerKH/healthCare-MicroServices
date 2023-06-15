@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  user-management-ms :
+      build : 
+         context : .
+         dockerfile : Dockerfile
+      image : node:lastest
+      container_name: user-management-ms
+      restart : always 
+      stdin_open: true 
+      tty : true
+      command : /usr/src/app/node_modules/.bin/nodemon server.js
+      volumes :
+        - ./:/usr/src/app
+        - /usr/src/app/node_modules
+      ports :
+       - "5008:5000"
+      depends_on:
+       - mongodb
+      env_file : ./config/.env
+
+  mongodb:
+       image : mongo:latest
+       container_name : mongodb
+       restart : always 
+       volumes :
+        - dbdata:/data/db
+       ports:
+        - "27018:27017"
+       
+networks:
+    app-network:
+       driver : bridge
+volumes:
+     dbdata :
+        driver : local   
+       
+         
