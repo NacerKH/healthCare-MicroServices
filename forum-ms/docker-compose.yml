@@ -1,12 +1,12 @@
 version: '3.7'
 
 services:
-  medest-gatway-ms :
+  medest-forum-ms :
       build : 
          context : .
          dockerfile : Dockerfile
       image : node:lastest
-      container_name: medest-gatway-ms
+      container_name: medest-forum-ms
       restart : always 
       stdin_open: true 
       tty : true
@@ -17,20 +17,25 @@ services:
       ports :
        - "5010:5000"
       depends_on:
-       - mongodb-gatway-ms
+       - mongodb-forum-ms
       env_file : ./config/.env
+      networks:
+       - medest-network
 
-  mongodb-gatway-ms:
+  mongodb-forum-ms:
        image : mongo:latest
-       container_name : mongodb-gatway-ms
+       container_name : mongodb-forum-ms
        restart : always 
        volumes :
         - dbdata:/data/db
        ports:
         - "27019:27017"
+       networks:
+       - medest-network 
        
 networks:
-    app-network:
+    medest-network:
+       external: true
        driver : bridge
 volumes:
      dbdata :

@@ -17,20 +17,24 @@ services:
       ports :
        - "5008:5000"
       depends_on:
-       - mongodb
+       - user-management-ms-db
       env_file : ./config/.env
-
-  mongodb:
+      networks:
+       - medest-network
+  user-management-ms-db:
        image : mongo:latest
-       container_name : mongodb
+       container_name : user-management-ms-db
        restart : always 
        volumes :
         - dbdata:/data/db
+       networks:
+       - medest-network 
        ports:
         - "27018:27017"
        
 networks:
-    app-network:
+    medest-network:
+       external: true
        driver : bridge
 volumes:
      dbdata :

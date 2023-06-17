@@ -17,8 +17,10 @@ services:
       ports :
        - "5011:5000"
       depends_on:
-       - mongodb
+       - appoinement-db
       env_file : ./config/.env
+      networks:
+       - medest-network
 
  appoinement-db:
        image : mongo:latest
@@ -28,9 +30,12 @@ services:
         - dbdata:/data/db
        ports:
         - "27020:27017"
+       networks:
+       - medest-network 
        
 networks:
-    app-network:
+    medest-network:
+       external: true
        driver : bridge
 volumes:
      dbdata :
