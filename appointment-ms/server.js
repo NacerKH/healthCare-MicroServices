@@ -1,4 +1,6 @@
 const express= require('express');
+const mongoose = require('mongoose');
+
 require('dotenv').config({path: './config/.env'});
 const db =require('./config/db');
 const userRoutes=require('./routes/UserRoutes')
@@ -7,7 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/api/v1/',userRoutes)
-
+mongoose.set('strictQuery', false);
 
 
 ////server
