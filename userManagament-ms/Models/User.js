@@ -20,8 +20,8 @@ const UserSchema = new mongoose.Schema({
       picture: {
         type: String,
 
-    }
-
+    },
+ role: { type: mongoose.Schema.Types.ObjectId, ref: 'Role' },
 
 },
     {
