@@ -15,7 +15,7 @@ services:
         - ./:/usr/src/app
         - /usr/src/app/node_modules
       ports :
-       - "5010:5000"
+       - "5012:5000"
       depends_on:
        - complaint-ms-db
       env_file : ./config/.env
