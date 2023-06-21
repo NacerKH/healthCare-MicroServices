@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 require('dotenv').config({path: './config/.env'});
 const db =require('./config/db');
-const userRoutes=require('./routes/UserRoutes')
+const userRoutes=require('./routes/AppointmentRoutes')
 const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
@@ -12,7 +12,6 @@ app.use('/api/v1/',userRoutes)
 mongoose.set('strictQuery', false);
 
 
-////server
 app.listen(process.env.PORT, () =>{
     console.log(`listening on port ${process.env.PORT}`);
 })
