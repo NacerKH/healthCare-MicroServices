@@ -1,5 +1,5 @@
 const appointmentController = require('../controllers/AppointmentController');
-//const { AddUserValidation } =  require('../middlewares/Validation');
+const appointmentValidator = require('../middlewares/AppointmentValidator');
 const { upload } =require('../middlewares/Upload');
 
 const router = require('express').Router();
@@ -7,7 +7,7 @@ const router = require('express').Router();
 
 
 // Create a new appointment
-router.post('/addAppointment', upload,appointmentController.createAppointment);
+router.post('/addAppointment', appointmentValidator.validateAppointmentCreation,appointmentController.createAppointment);
 
 // Get all appointments
 router.get('/appointments',appointmentController.getAllAppointment);
