@@ -1,5 +1,6 @@
+const Role = require('../../Models/Role.js');
 const UserModel = require('../../Models/User.js');
-
+const handleFileUpload = require('../../services/Upload.js');
 const ObjectID = require('mongoose').Types.ObjectId;
 
 module.exports.getAllUsers = async (req, res) => {
@@ -22,6 +23,8 @@ module.exports.userinfo = (req, res) => {
 }
 
 module.exports.addUser = async (req, res) => {
+  const { pseudo, email, password, bio } = req.body;
+  console.log(req.body);
   try {
 
     let picture = "";
@@ -29,12 +32,13 @@ module.exports.addUser = async (req, res) => {
       picture = await handleFileUpload(req.file, req.body.pseudo);
     }
 
-    const newUser = new UserModel({
-      username: req.body.pseudo,
-      email: req.body.email,
-      password: req.body.password,
-      bio : req.body.bio?? "",
-      // Add any other required fields here
+    const newUser = await  new UserModel({
+      pseudo: pseudo,
+      email: email,
+      password: password,
+      bio : bio?? "",
+      // Add any other required fields xD
+      picture: picture?? "",
     });
 
     const savedUser = await newUser.save();
@@ -78,71 +82,36 @@ module.exports.deleteUser = async (req, res) => {
     return res.status(500).json({ message: err });
   }
 }
-module.exports.follow = async (req, res) => {
-  if (!ObjectID.isValid(req.params.id) || !ObjectID.isValid(req.body.idToFollow))
-    return res.status(400).send('ID unknow :' + req.params.id)
 
+module.exports.assignRole = async (req, res) => {
 
+  const { userId, roleId } = req.body;
   try {
-    //add to the follower List 
-    UserModel.findByIdAndUpdate(
-      req.params.id,
-      { $addToSet: { following: req.body.idToFollow } },
-      { new: true, upsert: true },
-      (err, docs) => {
-        if (!err) res.status(201).json(docs);
-        else return res.status(400).json(err)
-      }
-    );
-    //add to follwing list 
-    UserModel.findByIdAndUpdate(
-      req.body.idToFollow,
-      { $addToSet: { followers: req.params.id } },
-      { new: true, upsert: true },
-      (err, docs) => {
-        // if(!err) res.status(201).json(docs); on ne peut pas return deux response
-        if (err) return res.status(400).json(err)
-      }
-    );
-  } catch (err) {
-    return res.status(500).json({ message: err });
-  }
+    // Check if the user and role exist
+    const user = await UserModel.findById(userId);
+    const role = await Role.findById(roleId);
 
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    if (!role) {
+      throw new Error('Role not found');
+    }
+
+    // Check if the user already has the role assigned
+    const existingUserRole = await UserRole.findOne({ user: userId, role: roleId });
+
+    if (existingUserRole) {
+      throw new Error('Role already assigned to the user');
+    }
+
+    // Assign the role to the user
+    user.roles.push(roleId);
+    await user.save();
+
+    return 'Role assigned to the user successfully';
+  } catch (error) {
+    return error.message;
+  }
 }
-
-module.exports.unfollow = async (req, res) => {
-  if (
-    !ObjectID.isValid(req.params.id) || !ObjectID.isValid(req.body.idToUnfollow)
-  )
-    return res.status(400).send("ID unknown : " + req.params.id);
-
-  try {
-    //remove to follower List 
-    UserModel.findByIdAndUpdate(
-      req.params.id,
-      { $pull: { following: req.body.idToUnfollow } },
-      { new: true, upsert: true },
-      (err, docs) => {
-        if (!err) res.status(201).json(docs);
-        return res.status(400).json(err);
-      }
-    );
-
-    //remove to follwing list  conversion tow follw
-
-
-    UserModel.findByIdAndUpdate(
-      req.body.idToUnfollow,
-      { $pull: { followers: req.params.id } },
-      { new: true, upsert: true },
-      (err, docs) => {
-        // if (!err) res.status(201).json(docs);
-        if (err) return res.status(400).json(err);
-      }
-    );
-
-
-  } catch (err) {
-    return res.status(500).json({ message: err });
-  }
-};

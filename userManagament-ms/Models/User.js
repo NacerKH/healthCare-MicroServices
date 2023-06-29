@@ -48,11 +48,20 @@ const userSchema = new mongoose.Schema(
 
         likes: {
             type: [String]
-        }
-
-
-
-
+        },
+        email_verification: {
+            type: Date,
+            default: null
+        },
+        email_verification_token_expiresAt : {
+            type: Date,
+            default: null
+        },
+        email_verification_token : {
+            type: String,
+            default: null
+        },
+        role: { type: mongoose.Schema.Types.ObjectId, ref: 'UserRole' } // Reference to the UserRole document
     },
     {
         timestamps: true,

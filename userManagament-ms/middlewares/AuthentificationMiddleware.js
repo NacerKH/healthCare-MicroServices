@@ -26,13 +26,13 @@ module.exports.checkUser = (req, res, next) => {
 
 
 }
-module.exports.requireAuth = (req, res, next) => {
+module.exports.requireAuth = async  (req, res, next)  => {
     const token = req.cookies.jwt;
     if (token) {
         jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
             if (err) {
                 console.log(err);
-                res.send(200).json('No token')
+                return res.status(419).json({ message: 'Unauthorized' });
             }
             else {
                 console.log(decodedToken.id);
@@ -40,6 +40,6 @@ module.exports.requireAuth = (req, res, next) => {
             }
         });
     } else {
-        console.log('No token');
+        return res.status(419).json({ message: 'Unauthorized' });
     }
 }
