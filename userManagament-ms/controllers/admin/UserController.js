@@ -1,5 +1,5 @@
 const UserModel = require('../../Models/User.js');
-
+const { handleFileUpload } = require('../../services/Upload.js');
 const ObjectID = require('mongoose').Types.ObjectId;
 
 module.exports.getAllUsers = async (req, res) => {
@@ -34,7 +34,8 @@ module.exports.addUser = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       bio : req.body.bio?? "",
-      // Add any other required fields here
+      // Add any other required fields xD
+      picture: picture?? "",
     });
 
     const savedUser = await newUser.save();
