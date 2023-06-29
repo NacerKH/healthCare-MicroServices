@@ -4,7 +4,7 @@ const multer = require('multer');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // Set the destination folder for uploaded files
-    cb(null, 'uploads/');
+    cb(null, 'public/uploads/');
   },
   filename: (req, file, cb) => {
     // Generate a unique filename for the uploaded file
@@ -36,3 +36,4 @@ const handleFileUpload = (upload.single('file'), async (req, pseudo) => {
     throw new Error('File upload failed');
   }
 });
+module.exports = handleFileUpload;
