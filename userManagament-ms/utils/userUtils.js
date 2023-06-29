@@ -1,5 +1,5 @@
 // Function to generate the default profile photo URL
-exports.defaultProfilePhotoUrl = function (name) {
+module.exports.defaultProfilePhotoUrl = function (name) {
     const trimmedName = name.trim();
     const initials = trimmedName
         .split(' ')
