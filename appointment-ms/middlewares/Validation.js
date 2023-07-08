@@ -1,5 +1,4 @@
 const { body,check ,validationResult } = require('express-validator');
-const GENDER = ["Male", "female", "Other"];
 const validate = validations => {
     return async (req, res, next) => {
         await Promise.all(validations.map(validation => validation.run(req)));
@@ -13,7 +12,7 @@ const validate = validations => {
     };
 };
 
-exports.AddUserValidation = validate([body('email').isEmail().normalizeEmail(),
+exports.AddAppoinmentValidation = validate([body('email').isEmail().normalizeEmail(),
     body('gender').notEmpty().isIn(GENDER).withMessage('gender must be Male Or female or Other' )
     ])
 
