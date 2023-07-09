@@ -1,3 +1,4 @@
+============================================
 GET /api/v1/posts/:posterId
 
 Fetch all posts
