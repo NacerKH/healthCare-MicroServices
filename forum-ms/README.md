@@ -1,4 +1,5 @@
 ============================================
+
 GET /api/v1/posts/:posterId
 
 Fetch all posts
@@ -6,7 +7,9 @@ Fetch all posts
 Test:
 
 curl -v http://127.0.0.1:5012/api/v1/
+
 ============================================
+
 GET /api/v1/posts/:posterId
 
 Fetch a post by posterId
@@ -32,5 +35,6 @@ Delete a post by _id
 test:
 
 curl -v -X DELETE http://127.0.0.1:5012/api/v1/posts/64ab2ea0a968159324099785
+
 ============================================
 
