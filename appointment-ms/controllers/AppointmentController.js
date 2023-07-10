@@ -111,3 +111,16 @@ module.exports.updateAppointment = async (req, res) => {
     return res.status(500).send(err);
   }
 };
+
+module.exports.findAppointmentsByMedicalSituation = async (req, res) => {
+  const medicalSituation = req.query.medicalSituation; // Retrieve the medicalSituation from query parameters
+
+  try {
+    const appointments = await AppointmentModel.find({
+      medicalSituation: { $regex: medicalSituation, $options: 'i' }
+    });
+    return res.status(200).json(appointments);
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};

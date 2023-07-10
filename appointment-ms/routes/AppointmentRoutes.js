@@ -21,6 +21,11 @@ router.delete('/appointment/:id', appointmentController.deleteAppointment);
 // Update an appointment
 router.put('/appointment/:id', appointmentController.updateAppointment);
 
+
+// Research with MedicalSituation
+router.get('/appointments', appointmentController.findAppointmentsByMedicalSituation);
+
+
 /** This endPoint just for test  */
 router.get('/first', (req, res) => {
     res.send('Hello, World!');
