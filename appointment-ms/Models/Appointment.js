@@ -10,6 +10,10 @@ const AppointmentSchema = new mongoose.Schema(
         type: String,
         required: true
     },
+    emailMed:{
+        type: String,
+        required:true,
+    },
     probableStartTime: {
       type: Date,
       required: true
