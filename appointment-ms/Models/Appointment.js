@@ -7,12 +7,12 @@ const AppointmentSchema = new mongoose.Schema(
       required: true
     },
     medicineId: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
-    emailMed:{
-        type: String,
-        required:true,
+    emailMed: {
+      type: String,
+      required: true
     },
     probableStartTime: {
       type: Date,
@@ -38,6 +38,10 @@ const AppointmentSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true
+    },
+    appointmentDetail: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'AppointmentDetail'
     }
   },
   {
