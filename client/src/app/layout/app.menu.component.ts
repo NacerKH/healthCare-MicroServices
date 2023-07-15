@@ -20,6 +20,7 @@ export class AppMenuComponent implements OnInit {
                     { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
                 ]
             },
+            /*
             {
                 label: 'UI Components',
                 items: [
@@ -55,6 +56,7 @@ export class AppMenuComponent implements OnInit {
                     { label: 'PrimeFlex', icon: 'pi pi-fw pi-desktop', url: ['https://www.primefaces.org/primeflex/'], target: '_blank' },
                 ]
             },
+            */
             {
                 label: 'Pages',
                 icon: 'pi pi-fw pi-briefcase',
@@ -107,6 +109,7 @@ export class AppMenuComponent implements OnInit {
                     },
                 ]
             },
+            /*
             {
                 label: 'Hierarchy',
                 items: [
@@ -160,6 +163,7 @@ export class AppMenuComponent implements OnInit {
                     }
                 ]
             }
+            */
         ];
     }
 }
