@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
-const AppointmentModel = require('../Models/Appointment')
+const AppointmentModel = require('../Models/Appointment');
+const AppointmentDetailModel = require('../Models/AppointmentDetail');
 const ObjectID = require('mongoose').Types.ObjectId;
 const nodemailer = require('nodemailer');
 
 // Create a transporter instance
 const transporter = nodemailer.createTransport({
   host: 'smtp.ethereal.email',
-    port: 587,
-    auth: {
-        user: 'cassandre.rodriguez@ethereal.email',
-        pass: 'SVYVAP597f3BJrqn3D'
+  port: 587,
+  auth: {
+    user: 'cassandre.rodriguez@ethereal.email',
+    pass: 'SVYVAP597f3BJrqn3D'
   }
 });
 
@@ -17,7 +18,7 @@ module.exports.createAppointment = async (req, res) => {
   const newAppointment = new AppointmentModel({
     userId: req.body.userId,
     medicineId: req.body.medicineId,
-    emailMed:req.body.emailMed,
+    emailMed: req.body.emailMed,
     probableStartTime: req.body.probableStartTime,
     actualEndTime: req.body.actualEndTime,
     appointmentStatus: req.body.appointmentStatus,
@@ -25,8 +26,18 @@ module.exports.createAppointment = async (req, res) => {
     notes: req.body.notes,
     createdBy: req.body.createdBy
   });
+
   try {
-    const appointment = await newAppointment.save();
+    const savedAppointment = await newAppointment.save();
+
+    const newAppointmentDetail = new AppointmentDetailModel({
+      appointmentId: savedAppointment._id,
+      detailField: req.body.detailField,
+      // Add more fields as needed
+    });
+
+    const savedAppointmentDetail = await newAppointmentDetail.save();
+
     // Compose the email message
     console.log(req.body.emailMed);
     const mailOptions = {
@@ -45,34 +56,32 @@ module.exports.createAppointment = async (req, res) => {
       }
     });
 
-    return res.status(201).json(appointment);
+    return res.status(201).json(savedAppointment);
   } catch (err) {
     return res.status(400).send(err);
   }
+};
 
-}
 module.exports.getAllAppointment = async (req, res) => {
-
   try {
-    const appointment = await AppointmentModel.find();
-    return res.status(200).json(appointment);
+    const appointments = await AppointmentModel.find().populate('appointmentDetail');
+    return res.status(200).json(appointments);
   } catch (err) {
     return res.status(400).send(err);
   }
+};
 
-}
 module.exports.getAppointment = async (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
-  AppointmentModel.findById({ _id: req.params.id }, (err, data) => {
-    if (!err && data) return res.send(data);
-    else console.log('ID unknow : ' + err);
-  });
-
-
-}
-
+  AppointmentModel.findById({ _id: req.params.id })
+    .populate('appointmentDetail')
+    .exec((err, data) => {
+      if (!err && data) return res.send(data);
+      else console.log('ID unknown : ' + err);
+    });
+};
 
 module.exports.deleteAppointment = async (req, res) => {
   if (!ObjectID.isValid(req.params.id))
@@ -91,7 +100,6 @@ module.exports.deleteAppointment = async (req, res) => {
   }
 };
 
-
 module.exports.updateAppointment = async (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown: " + req.params.id);
@@ -101,7 +109,7 @@ module.exports.updateAppointment = async (req, res) => {
       { _id: req.params.id },
       { $set: req.body },
       { new: true }
-    );
+    ).populate('appointmentDetail');
 
     if (!updatedAppointment)
       return res.status(404).send("Appointment not found");
@@ -118,9 +126,11 @@ module.exports.findAppointmentsByMedicalSituation = async (req, res) => {
   try {
     const appointments = await AppointmentModel.find({
       medicalSituation: { $regex: medicalSituation, $options: 'i' }
-    });
+    }).populate('appointmentDetail');
     return res.status(200).json(appointments);
   } catch (err) {
     return res.status(400).send(err);
   }
 };
+
+// Rest of the controller methods remain the same...
