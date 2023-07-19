@@ -8,11 +8,11 @@ COPY package*.json ./usr/src/app
 
  
 
-RUN npm install 
+RUN npm install --silent
 COPY . .
 RUN chown -R node:node  /usr/src/app/node_modules 
 
-EXPOSE 5000
+EXPOSE 80
 CMD ["npm","start "]
 
 
