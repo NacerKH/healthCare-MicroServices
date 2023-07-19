@@ -15,7 +15,7 @@ services:
         - ./:/usr/src/app
         - /usr/src/app/node_modules
       ports :
-       - "5013:5000"
+       - "5012:5000"
       depends_on:
        - mongodb-forum-ms
       env_file : ./config/.env
