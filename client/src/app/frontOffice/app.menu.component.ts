@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { LayoutService } from './service/app.layout.service';
+import { FrontOfficeService } from './service/app.frontOffice.service';
 
 @Component({
     selector: 'app-menu',
@@ -10,14 +10,14 @@ export class AppMenuComponent implements OnInit {
 
     model: any[] = [];
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: FrontOfficeService) { }
 
     ngOnInit() {
         this.model = [
             {
                 label: 'Home',
                 items: [
-                    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/backoffice'] }
+                    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/frontoffice'] }
                 ]
             },
             /*
@@ -64,7 +64,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Appointment',
                         icon: 'pi pi-fw pi-calendar',
-                        routerLink: ['/backoffice/pages/appointment']
+                        routerLink: ['/frontoffice/pages/appointment']
                     },
                     {
                         label: 'Landing',
@@ -95,12 +95,12 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Crud',
                         icon: 'pi pi-fw pi-pencil',
-                        routerLink: ['/backoffice/pages/crud']
+                        routerLink: ['/frontoffice/pages/crud']
                     },
                     {
                         label: 'Timeline',
                         icon: 'pi pi-fw pi-calendar',
-                        routerLink: ['/backoffice/pages/timeline']
+                        routerLink: ['/frontoffice/pages/timeline']
                     },
                     {
                         label: 'Not Found',
@@ -110,7 +110,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Empty',
                         icon: 'pi pi-fw pi-circle-off',
-                        routerLink: ['/backoffice/pages/empty']
+                        routerLink: ['/frontoffice/pages/empty']
                     },
                 ]
             },
