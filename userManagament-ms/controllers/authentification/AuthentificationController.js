@@ -33,7 +33,7 @@ module.exports.signIn = async (req, res) => {
         const user = await UserModel.login(email, password);
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: true, maxAge });
-        res.status(200).json({ token: token })
+        res.status(200).json({ token: token, role: user.role, user: user })
     } catch (err) {
         const errors = signInErrors(err);
         res.status(200).json({ errors });
@@ -42,5 +42,5 @@ module.exports.signIn = async (req, res) => {
 
 module.exports.logout = (req, res) => {
     res.cookie('jwt', '', { maxAge: 1 });
-    res.status(200).json({ message:"logout Successffullly" });
+    res.status(200).json({ message: "logout Successffullly" });
 }

@@ -10,23 +10,28 @@ console.log("BASE_URL", BASE_URL)
 const api = clientAxios(BASE_URL)
 
 router.post('/api/user/login', (req, res) => {
-  clientAxios(BASE_URL, req.headers.authorization).api.post(req.path, req.body).then(resp => {
+  clientAxios(BASE_URL, req.headers.authorization).post(req.path, req.body).then(resp => {
     res.send(resp.data)
   })
 })
 router.post('/api/user/register', (req, res) => {
-  clientAxios(BASE_URL, req.headers.authorization).api.post(req.path, req.body).then(resp => {
+  clientAxios(BASE_URL, req.headers.authorization).post(req.path, req.body).then(resp => {
     res.send(resp.data)
   })
 })
 
-router.post('/api/user/email/send-email-verification', checkAuth, (req, res) => {
+router.post('/api/user/email/send-email-verification', (req, res) => {
 
-  clientAxios(BASE_URL, req.headers.authorization).api.post(req.path, req.body).then(resp => {
+  clientAxios(BASE_URL, req.headers.authorization).post(req.path, req.body).then(resp => {
     res.send(resp.data)
   })
 })
-router.get('/api/user',checkAuth,(req, res) => {
+router.get('/api/user/email/verify-email/:verificationToken', (req, res) => {
+  clientAxios(BASE_URL, req.headers.authorization).get(req.path, req.body).then(resp => {
+    res.send(resp.data)
+  })
+})
+router.get('/api/user', checkAuth, (req, res) => {
   clientAxios(BASE_URL, req.headers.authorization).get(req.path, req.body).then(resp => {
     res.send(resp.data)
   })

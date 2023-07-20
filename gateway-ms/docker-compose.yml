@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+   medest-gateway-ms:
+      build:
+         context: .
+         dockerfile: Dockerfile
+      image: node:lastest
+      container_name: gateway-ms
+      restart: always
+      stdin_open: true
+      tty: true
+      extra_hosts:
+         - "host.docker.internal:host-gateway"
+      working_dir: /usr/src/app
+
+      command: /usr/src/app/node_modules/.bin/nodemon server.js
+      volumes:
+         - ./:/usr/src/app
+         - /usr/src/app/node_modules
+      ports:
+         - "80:80"
+      env_file: ./config/.env
+      networks:
+         - medest-network
+
+networks:
+   medest-network:
+      external: true
+      driver: bridge
+volumes:
+   dbdata:
+      driver: local

@@ -21,7 +21,7 @@ module.exports.checkUser = async (req, res, next) => {
                 let user = await UserModel.findById(decodedToken.id);
                 console.log(user);
                 res.locals.user = user;
-                res.cookie('user',user.email_verification??'', { maxAge: 10000000 });
+                res.cookie('user', user?.email_verification ?? '', { maxAge: 10000000 });
 
                 next();
             }
@@ -44,12 +44,12 @@ module.exports.requireAuth = async (req, res, next) => {
             }
 
             else {
-                console.log(decodedToken.id);
+                // console.log(decodedToken.id);
                 next();
             }
         });
     }
     else {
-        return res.status(419).json({ message: 'UnauthorizedD' });
+        return res.status(419).json({ message: 'Unauthorized No header check ' });
     }
 }

@@ -1,9 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const userRoutes = require('./routes/UserRoutes');
+const routes = require('./routes');
 require('dotenv').config({ path: './config/.env' });
-require('./config/db');
-const { checkUser, requireAuth } = require('./middlewares/AuthentificationMiddleware');
 const cors = require('cors');
 
 const app = express();
@@ -23,15 +21,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-//jwt
-app.get('*', checkUser);
-app.get('/jwtid', requireAuth, (req, res,next) => {
-    res.status(200).json(res.locals?.user?._id)
-})
 //router
-app.use('/api/user', userRoutes);
+app.use(routes);
 
 ////server
 app.listen(process.env.PORT, () => {
-    console.log(`listening on port ${process.env.PORT}`);
+    console.log(` gateway listening on port ${process.env.PORT}`);
 })
