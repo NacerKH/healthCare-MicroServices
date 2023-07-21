@@ -14,7 +14,7 @@ import { AuthGuard } from './auth.guard';
             { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
             { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },
             {
-                path: 'backoffice', component: AppLayoutComponent,  canActivate: [AuthGuard],
+                path: 'backoffice', component: AppLayoutComponent,  //canActivate: [AuthGuard],
                 children: [
                     { path: '', loadChildren: () => import('./core/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path: 'uikit', loadChildren: () => import('./core/components/uikit/uikit.module').then(m => m.UIkitModule) },
@@ -23,7 +23,7 @@ import { AuthGuard } from './auth.guard';
                     { path: 'blocks', loadChildren: () => import('./core/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'pages', loadChildren: () => import('./core/components/pages/pages.module').then(m => m.PagesModule) }
                 ]
-                , data: { role: 'admin' }
+                //, data: { role: 'admin' }
             },
             {
                 path: 'frontoffice', component: AppFrontOfficeComponent,

@@ -18,6 +18,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/helpers/auth.interceptor';
 import { MessageService } from 'primeng/api';
 import { AuthGuard } from './auth.guard';
+import { ComplaintService } from './core/service/complaint.service';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import { AuthGuard } from './auth.guard';
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, AppointmentService, FrontOfficeService, MessageService, AuthGuard
+        PhotoService, ProductService, AppointmentService,ComplaintService, FrontOfficeService, MessageService, AuthGuard
     ],
     bootstrap: [AppComponent]
 })
