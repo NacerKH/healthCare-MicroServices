@@ -72,8 +72,35 @@ export class AppointmentService {
           });
       }
 
+    getAppointmentsByUser(userId: string): Promise<Appointment[] | undefined> {
+        const url = `${this.apiUrl}/appointments/user/${userId}`;
+        return this.http.get<Appointment[]>(url)
+            .toPromise()
+            .then((res) => {
+                return res;
+            })
+            .catch((error) => {
+                console.error('Error fetching appointments:', error);
+                return []; // Return an empty array if there is an error.
+            });      }
+
+    getAppointmentsByMedicine(medicineId: string): Promise<Appointment[] | undefined> {
+        const url = `${this.apiUrl}/appointments/medicine/${medicineId}`;
+        return this.http.get<Appointment[]>(url)
+            .toPromise()
+            .then((res) => {
+                return res
+            })
+            .catch((error) => {
+                console.error('Error fetching appointments:', error);
+                return []; // Return an empty array if there is an error.
+            });
+    }
+
     private handleError(error: any) {
         console.error('An error occurred:', error);
         throw error;
     }
+
+
 }

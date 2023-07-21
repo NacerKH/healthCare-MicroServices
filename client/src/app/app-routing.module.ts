@@ -31,7 +31,7 @@ import { AppFrontOfficeComponent } from "./frontOffice/app.frontoffice.component
                     { path: 'utilities', loadChildren: () => import('./core/components/utilities/utilities.module').then(m => m.UtilitiesModule) },
                     { path: 'documentation', loadChildren: () => import('./core/components/documentation/documentation.module').then(m => m.DocumentationModule) },
                     { path: 'blocks', loadChildren: () => import('./core/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
-                    { path: 'pages', loadChildren: () => import('./core/components/pages/pages.module').then(m => m.PagesModule) }
+                    { path: 'pages', loadChildren: () => import('./core/components/pagesFront/pages-front.module').then(m => m.PagesFrontModule) }
                 ]
             },
             { path: 'notfound', component: NotfoundComponent },
