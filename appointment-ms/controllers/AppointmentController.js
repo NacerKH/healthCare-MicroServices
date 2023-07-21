@@ -133,4 +133,26 @@ module.exports.findAppointmentsByMedicalSituation = async (req, res) => {
   }
 };
 
-// Rest of the controller methods remain the same...
+// Get appointments for a specific user
+module.exports.getAppointmentsByUser = async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const appointments = await AppointmentModel.find({ userId }).populate('appointmentDetail');
+    return res.status(200).json(appointments);
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
+
+// Get appointments for a specific medicine
+module.exports.getAppointmentsByMedicine = async (req, res) => {
+  const medicineId = req.params.medicineId;
+
+  try {
+    const appointments = await AppointmentModel.find({ medicineId }).populate('appointmentDetail');
+    return res.status(200).json(appointments);
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
