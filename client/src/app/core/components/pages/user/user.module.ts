@@ -1,34 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginRoutingModule } from './login-routing.module';
-import { LoginComponent } from './login.component';
-import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
-import { InputTextModule } from 'primeng/inputtext';
-import { ToastModule } from 'primeng/toast';
-import { MessageModule } from 'primeng/message';
-import { MessageService } from 'primeng/api';
+import { CrudRoutingModule } from '../crud/crud-routing.module';
+import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { RatingModule } from 'primeng/rating';
+import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
+import { UserComponent } from './user.component';
+import { UserRoutingModule } from './user-routing.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        LoginRoutingModule,
-        ButtonModule,
-        CheckboxModule,
-        InputTextModule,
-        FormsModule,
-        PasswordModule,
+        UserRoutingModule,
+        TableModule,
         FileUploadModule,
         FormsModule,
         ButtonModule,
@@ -42,9 +36,7 @@ import { DialogModule } from 'primeng/dialog';
         RadioButtonModule,
         InputNumberModule,
         DialogModule
-
     ],
-    declarations: [LoginComponent],
-    providers: [MessageService,MessageModule]
+    declarations: [UserComponent]
 })
-export class LoginModule { }
+export class UserModule { }

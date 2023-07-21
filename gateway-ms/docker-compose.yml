@@ -19,7 +19,7 @@ services:
          - ./:/usr/src/app
          - /usr/src/app/node_modules
       ports:
-         - "80:80"
+         - "8000:8000"
       env_file: ./config/.env
       networks:
          - medest-network

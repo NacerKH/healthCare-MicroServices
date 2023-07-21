@@ -14,6 +14,10 @@ import { IconService } from './core/service/icon.service';
 import { NodeService } from './core/service/node.service';
 import { PhotoService } from './core/service/photo.service';
 import { FrontOfficeService } from './frontOffice/service/app.frontOffice.service'; // Adjust the path accordingly
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './core/helpers/auth.interceptor';
+import { MessageService } from 'primeng/api';
+import { AuthGuard } from './auth.guard';
 
 
 @NgModule({
@@ -23,12 +27,14 @@ import { FrontOfficeService } from './frontOffice/service/app.frontOffice.servic
     imports: [
         AppRoutingModule,
         AppLayoutModule,
-        AppFrontOfficeModule
+        AppFrontOfficeModule,
+
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService,AppointmentService,FrontOfficeService
+        PhotoService, ProductService, AppointmentService, FrontOfficeService, MessageService, AuthGuard
     ],
     bootstrap: [AppComponent]
 })

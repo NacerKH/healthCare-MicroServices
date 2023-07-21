@@ -12,7 +12,7 @@ RUN npm install
 COPY . .
 RUN chown -R node:node  /usr/src/app/node_modules 
 
-EXPOSE 80
+EXPOSE 8000
 CMD ["npm","start "]
 
 

@@ -18,7 +18,7 @@ module.exports.checkAuth = async (req, res, next) => {
             }
 
             if (!response.data) {
-                return res.status(500).json({ 'ExternalServerError': 'AuthMS', ...response.data });
+                return res.status(500).json({ 'ExternalServerError': 'AuthMS', response: response.data });
             }
             console.log(response.data)
             res.cookie('user_id', response.data, { httpOnly: true, maxAge });

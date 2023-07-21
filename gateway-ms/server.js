@@ -7,14 +7,14 @@ const cors = require('cors');
 const app = express();
 
 const corsOptions = {
-    origin: "*",
+    origin: "http://localhost:4200/",
     credentials: true,
-    'allowedHeaders': ['sessionId', 'Content-Type', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Credentials'],
+    'allowedHeaders': ['sessionId', 'Content-Type', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Credentials', 'Authorization'],
     'exposedHeaders': ['sessionId'],
     'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    'preflightContinue': false
+    'preflightContinue': true
 }
-app.use(cors(corsOptions));
+app.use(cors());
 
 
 app.use(express.json());

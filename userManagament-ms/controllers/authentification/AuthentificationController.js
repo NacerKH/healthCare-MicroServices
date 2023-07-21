@@ -13,9 +13,15 @@ const createToken = (id) => {
 
 module.exports.signUp = async (req, res) => {
     console.log(req.body);
-    const { pseudo, email, password } = req.body
+    const { pseudo, email, password, role } = req.body
+    // Validate the role
+    const validRoles = ['patient', 'medecin'];
+    if (!validRoles.includes(role)) {
+        return res.status(400).json({ error: 'Invalid role. Allowed roles are "user" and "patient".' });
+    }
+
     try {
-        const user = await UserModel.create({ pseudo, email, password });
+        const user = await UserModel.create({ pseudo, email, password ,role});
         res.status(201).json({ user: user._id });
     }
     catch (err) {
@@ -33,10 +39,10 @@ module.exports.signIn = async (req, res) => {
         const user = await UserModel.login(email, password);
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: true, maxAge });
-        res.status(200).json({ token: token, role: user.role, user: user })
+        res.status(200).json({ token: token, role: user.role })
     } catch (err) {
         const errors = signInErrors(err);
-        res.status(200).json({ errors });
+        res.status(500).json({ errors });
     }
 }
 

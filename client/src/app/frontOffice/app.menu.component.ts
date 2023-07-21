@@ -65,6 +65,10 @@ export class AppMenuComponent implements OnInit {
                         label: 'Appointment',
                         icon: 'pi pi-fw pi-calendar',
                         routerLink: ['/frontoffice/pages/appointment']
+                    }, {
+                        label: 'Users',
+                        icon: 'pi pi-fw pi-user',
+                        routerLink: ['/frontoffice/pages/user']
                     },
                 ]
             },

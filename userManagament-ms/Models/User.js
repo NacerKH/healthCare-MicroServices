@@ -53,15 +53,19 @@ const userSchema = new mongoose.Schema(
             type: Date,
             default: null
         },
-        email_verification_token_expiresAt : {
+        email_verification_token_expiresAt: {
             type: Date,
             default: null
         },
-        email_verification_token : {
+        email_verification_token: {
             type: String,
             default: null
         },
-        role: { type: mongoose.Schema.Types.ObjectId, ref: 'UserRole' } // Reference to the UserRole document
+        role: {
+            type: String,
+            enum: ["admin", "medecin", "patient"],
+            default: "patient"
+        },
     },
     {
         timestamps: true,

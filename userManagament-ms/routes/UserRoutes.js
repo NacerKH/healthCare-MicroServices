@@ -20,7 +20,7 @@ router.use(requireAuth);
 
 
 router.use(checkUser);
-router.use(checkEmailVerification);
+// router.use(checkEmailVerification);
 router.get("/logout", authController.logout);
 //user:DB
 router.get("/", adminController.getAllUsers);
