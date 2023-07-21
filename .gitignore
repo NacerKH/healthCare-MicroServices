@@ -2,3 +2,4 @@ appointment-ms/node_modules/*
 complaint-ms/node_modules/*
 gateway-ms/node_modules/*
 userManagement-ms/node_modules/*
+client/node_modules/*

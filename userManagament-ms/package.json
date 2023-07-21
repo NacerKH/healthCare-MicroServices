@@ -13,15 +13,24 @@
   "author": "Naser & firas",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.20.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-validator": "^6.15.0",
+    "faker": "^6.6.6",
+    "jsonwebtoken": "^9.0.0",
     "mongodb": "^5.0.1",
-    "mongoose": "^6.9.2",
+    "mongoose": "^6.11.4",
+    "mongoose-data-seed": "^2.1.6",
+    "mongoose-seed": "^0.6.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "nodemon": "^2.0.20"
+    "nodemailer": "^6.9.3",
+    "nodemon": "^2.0.20",
+    "validator": "^13.9.0"
   }
 }
