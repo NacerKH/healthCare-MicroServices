@@ -23,24 +23,32 @@ export class LoginComponent {
     password!: string;
     email!: string;
 
-    constructor(public layoutService: LayoutService, private router: Router, private _authentificationService: AuthentificationService,private messageService : MessageService) { }
+    constructor(public layoutService: LayoutService, private router: Router, private _authentificationService: AuthentificationService, private messageService: MessageService) { }
 
     signIn() {
         // Perform login logic here
-        this._authentificationService.login(this.email,this.password).subscribe((res: any) => {
-           if(res.error){
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: 'Failed to update appointment',
-                life: 3000,
-            });
-               return;
-              }
+        this._authentificationService.login(this.email, this.password).subscribe((res: any) => {
+            if (res.error) {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Failed to update appointment',
+                    life: 3000,
+                });
+                return;
+            }
             localStorage.setItem('token', res.token);
             localStorage.setItem('role', res.role);
-            localStorage.setItem('user', res.role);
-            this.router.navigate(['/backoffice']);
+            localStorage.setItem('user', res.user);
+            if (res.role == 'patient') {
+                this.router.navigate(['/frontoffice']);
+
+            }
+            else {
+                this.router.navigate(['/backoffice']);
+
+            }
+
         });
 
     }

@@ -4,12 +4,12 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpHeaders } from '@angular
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler) {
-    const token = true;
+    const token = localStorage.getItem('token');
 
     if (token) {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjlkMjcwNTQ1YWI0MDcyOWUzMGJlYiIsImlhdCI6MTY4OTk0NzgzNCwiZXhwIjoxOTQ5MTQ3ODM0fQ.HCHWYKdJCQ118hHbVZqPR3U_YuQBE5zfgvaANTlJz7k'
+            'authorization': token
           });
       request = request.clone({ headers });
     }
