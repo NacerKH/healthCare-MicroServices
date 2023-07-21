@@ -4,7 +4,7 @@
   "description": "this project foir reminder simple crud and middleware",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -25,3 +25,4 @@
     "nodemon": "^2.0.20"
   }
 }
+

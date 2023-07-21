@@ -1,16 +1,22 @@
 const express= require('express');
 require('dotenv').config({path: './config/.env'});
 const db =require('./config/db');
-const userRoutes=require('./routes/UserRoutes')
+
+const mongoose = require('mongoose');
+
+
+const ComplaintRoutes=require('./routes/ComplaintRoutes')
 const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use('/api/v1/',userRoutes)
 
 
+app.use('/api/complaint/', ComplaintRoutes)
 
-////server
-app.listen(process.env.PORT, () =>{
-    console.log(`listening on port ${process.env.PORT}`);
+const hostname="127.0.0.1"
+const port = process.env.port || 9090 // || = OU logique 
+
+app.listen(port, hostname,()=>{
+    console.log(`server running  ${hostname}:${port}`);
 })
