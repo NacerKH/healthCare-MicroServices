@@ -25,6 +25,11 @@ router.put('/appointment/:id', appointmentController.updateAppointment);
 // Research with MedicalSituation
 router.get('/appointments', appointmentController.findAppointmentsByMedicalSituation);
 
+// Get appointments for a specific user
+router.get('/appointments/user/:userId', appointmentController.getAppointmentsByUser);
+
+// Get appointments for a specific medicine
+router.get('/appointments/medicine/:medicineId', appointmentController.getAppointmentsByMedicine);
 
 /** This endPoint just for test  */
 router.get('/first', (req, res) => {
