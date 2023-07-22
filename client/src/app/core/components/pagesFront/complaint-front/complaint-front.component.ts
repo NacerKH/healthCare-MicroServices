@@ -5,10 +5,10 @@ import { Table } from 'primeng/table';
 import { ComplaintService } from '../../../service/complaint.service';
 
 @Component({
-    templateUrl: './complaint.component.html',
+    templateUrl: './complaint-front.component.html',
     providers: [MessageService],
 })
-export class ComplaintComponent implements OnInit {
+export class ComplaintFrontComponent implements OnInit {
     complaintDialog: boolean = false;
     deleteComplaintDialog: boolean = false;
     deleteComplaintsDialog: boolean = false;

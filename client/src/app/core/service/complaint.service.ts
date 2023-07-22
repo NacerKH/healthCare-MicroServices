@@ -35,7 +35,7 @@ export class ComplaintService {
     }
 
     createComplaint(complaint: Complaint): Promise<Complaint | undefined> {
-        return this.http.post<Complaint>(`${this.apiUrl}/addComplaint`, complaint)
+        return this.http.post<Complaint>(`${this.apiUrl}/complaint/addComplaint`, complaint)
             .toPromise()
             .then((res) => {
                 return res;

@@ -5,8 +5,8 @@ const ObjectID = require('mongoose').Types.ObjectId;
 module.exports.createComplaint = async (req, res) => {
     console.log( "ddd",req)
     const newComplaint = new ComplaintModel({
-      userId: req.body.userId,
-      medecineId:req.body.medecineId,
+      userId: req.body.userId??"null",
+      medecineId:req.body.medecineId??"null",
       title: req.body.title,
       description: req.body.description,
       type:req.body.type,

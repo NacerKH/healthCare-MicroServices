@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ComplaintComponent } from './complaint.component';
+import { ComplaintFrontComponent } from './complaint-front.component';
 
 @NgModule({
 	imports: [RouterModule.forChild([
-	{ path: '', component: ComplaintComponent }
+	{ path: '', component: ComplaintFrontComponent }
 	])],
 	exports: [RouterModule]
 })
-export class ComplaintRoutingModule { }
+export class ComplaintFrontRoutingModule { }
 
 
 
