@@ -3,12 +3,14 @@ const ComplaintModel =require('../Models/complaint');
 const ObjectID = require('mongoose').Types.ObjectId;
 
 module.exports.createComplaint = async (req, res) => {
-    console.log( "ddd",{...req})
+    console.log( "ddd",req)
     const newComplaint = new ComplaintModel({
+      userId: req.body.userId,
+      medecineId:req.body.medecineId,
       title: req.body.title,
       description: req.body.description,
-      userId: req.header.Complaint,
-      type:req.body.type
+      type:req.body.type,
+      
    
       });
       try {
@@ -77,4 +79,26 @@ module.exports.deleteComplaint = async (req, res) => {
   }
 }
 
+module.exports.getComplaintByUser = async (req, res) => {
+  const userId = req.params.id;
+  console.log(req)
+  try {
+    const complaint = await ComplaintModel.find({userId:userId});
+    return res.status(200).json(complaint);
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
 
+module.exports.getComplaintByMedicine = async (req, res) => {
+  const medecineId = req.params.id;
+  console.log(req)
+
+  try {
+    const complaint = await ComplaintModel.find({medecineId:medecineId});
+      
+    return res.status(200).json(complaint);
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
