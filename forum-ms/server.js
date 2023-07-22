@@ -19,5 +19,5 @@ app.use('/api/v1/',PostRoutes)
 
 ////server
 app.listen(process.env.PORT, () =>{
-    console.log(`listening on port ${process.env.PORT}`);
+    console.log(`l forum istening on port ${process.env.PORT}`);
 })

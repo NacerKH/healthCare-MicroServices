@@ -29,7 +29,7 @@ import { AuthGuard } from './auth.guard';
                 , data: { role: 'admin' }
             },
             {
-                path: 'frontoffice', component: AppFrontOfficeComponent,
+                path: 'frontoffice', component: AppFrontOfficeComponent, canActivate: [AuthGuard],
                 children: [
                     { path: '', loadChildren: () => import('./core/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path: 'uikit', loadChildren: () => import('./core/components/uikit/uikit.module').then(m => m.UIkitModule) },
@@ -38,6 +38,7 @@ import { AuthGuard } from './auth.guard';
                     { path: 'blocks', loadChildren: () => import('./core/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'pages', loadChildren: () => import('./core/components/pagesFront/pages-front.module').then(m => m.PagesFrontModule) }
                 ]
+                , data: { role: 'user' }
             },
             { path: 'notfound', component: NotfoundComponent },
             { path: '**', redirectTo: '/notfound' },

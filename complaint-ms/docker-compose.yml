@@ -15,7 +15,7 @@ services:
         - ./:/usr/src/app
         - /usr/src/app/node_modules
       ports :
-       - "5012:5000"
+       - "5002:5000"
       depends_on:
        - complaint-ms-db
       env_file : ./config/.env
@@ -29,7 +29,7 @@ services:
        volumes :
         - dbdata:/data/db
        ports:
-        - "27023:27017"
+        - "27020:27017"
        networks:
        - medest-network
        

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const uri = "mongodb://127.0.0.1:27017/complaint";
+const uri = process.env.URL_MONGO_DB;
 
 
 mongoose.set('strictQuery', true)

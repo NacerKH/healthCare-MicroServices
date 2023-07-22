@@ -1,11 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Complaint } from '../api/Complaint';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ComplaintService {
 
-    private apiUrl: string = 'http://127.0.0.1:8000/api';
+    private apiUrl: string = environment.baseUrl;
 
     constructor(private http: HttpClient) { }
 
@@ -82,7 +83,8 @@ export class ComplaintService {
             .catch((error) => {
                 console.error('Error fetching complaint:', error);
                 return []; // Return an empty array if there is an error.
-            });      }
+            });
+    }
 
 
 

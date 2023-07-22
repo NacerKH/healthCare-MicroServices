@@ -38,12 +38,14 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
 
     checkUserLogin(route: ActivatedRouteSnapshot, url: any): boolean {
         if (this.authService.isLoggedIn()) {
-            const userRole = this.authService.getRole();
+            let userRole = this.authService.getRole();
             // console.log(userRole)
             console.log(route.data)
             const { role } = route.data;
-            console.log(role)
-            if (role !=userRole) {
+            if (userRole == 'patient' || userRole == 'medecin') {
+                userRole = 'user'
+            }
+            if (role != userRole) {
                 this.router.navigate(['/login']);
                 return false;
             }

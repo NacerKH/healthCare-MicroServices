@@ -40,8 +40,8 @@ export class ComplaintComponent implements OnInit {
             });
 
         this.cols = [
-            { field: 'medecineId', header: 'medecineId'},
-            { field: 'userId', header:'userId'},
+            { field: 'medecineId', header: 'medecineId' },
+            { field: 'userId', header: 'userId' },
             { field: 'title', header: 'title' },
             { field: 'description', header: 'description' },
             { field: 'type', header: 'type' },
@@ -57,28 +57,28 @@ export class ComplaintComponent implements OnInit {
             title: '',
             description: '',
             type: '',
-            
+
         };
-            this.submitted = false;
-            this.complaintDialog = true; 
+        this.submitted = false;
+        this.complaintDialog = true;
     }
 
     deleteSelectedComplaints() {
-        this.deleteComplaintsDialog = true; 
+        this.deleteComplaintsDialog = true;
     }
 
     editComplaint(complaint: Complaint) {
-        this.complaint = { ...complaint }; 
-        this.complaintDialog = true; 
+        this.complaint = { ...complaint };
+        this.complaintDialog = true;
     }
 
     deleteComplaint(complaint: Complaint) {
-        this.deleteComplaintDialog = true; 
-        this.complaint = { ...complaint }; 
+        this.deleteComplaintDialog = true;
+        this.complaint = { ...complaint };
     }
 
     confirmDeleteSelected() {
-        this.deleteComplaintsDialog = false; 
+        this.deleteComplaintsDialog = false;
         this.complaints = this.complaints.filter(
             (val) => !this.selectedComplaints.includes(val)
         );
@@ -93,15 +93,15 @@ export class ComplaintComponent implements OnInit {
     }
 
     confirmDelete() {
-        this.deleteComplaintDialog = false; 
+        this.deleteComplaintDialog = false;
 
-        
+
         if (this.complaint && this.complaint._id) {
             this.complaintService
                 .deleteComplaint(this.complaint && this.complaint._id)
                 .then(() => {
                     this.complaints = this.complaints.filter(
-                        (val) => val._id !==this.complaint?._id
+                        (val) => val._id !== this.complaint?._id
                     );
 
                     this.messageService.add({
@@ -133,95 +133,96 @@ export class ComplaintComponent implements OnInit {
     }
 
     hideDialog() {
-        this.complaintDialog = false; 
+        this.complaintDialog = false;
         this.submitted = false;
     }
 
     saveComplaint() {
         this.submitted = true;
 
-            if (this.complaint?._id) {
-                this.complaintService
-                    .updateComplaint(this.complaint._id, this.complaint)
-                    .then((res) => {
-                        if (res) {
-                            const index = this.findIndexById(res._id);
-                            if (index !== -1) {
-                                this.complaints[index] = res;
-                                this.messageService.add({
-                                    severity: 'success',
-                                    summary: 'Successful',
-                                    detail: 'Complaint Updated',
-                                    life: 3000,
-                                });
-                            } else {
-                                console.error(
-                                    'Complaint not found in the list'
-                                );
-                            }
-                        } else {
-                            console.error('Failed to update complaint:', res);
+        if (this.complaint?._id) {
+            this.complaintService
+                .updateComplaint(this.complaint._id, this.complaint)
+                .then((res) => {
+                    if (res) {
+                        const index = this.findIndexById(res._id);
+                        if (index !== -1) {
+                            this.complaints[index] = res;
                             this.messageService.add({
-                                severity: 'error',
-                                summary: 'Error',
-                                detail: 'Failed to update complaint',
+                                severity: 'success',
+                                summary: 'Successful',
+                                detail: 'Complaint Updated',
                                 life: 3000,
                             });
+                        } else {
+                            console.error(
+                                'Complaint not found in the list'
+                            );
                         }
-                    })
-                    .catch((error) => {
-                        console.error('Error updating complaint:', error);
+                    } else {
+                        console.error('Failed to update complaint:', res);
                         this.messageService.add({
                             severity: 'error',
                             summary: 'Error',
                             detail: 'Failed to update complaint',
                             life: 3000,
                         });
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error updating complaint:', error);
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: 'Failed to update complaint',
+                        life: 3000,
                     });
-            } else {
-                this.complaintService
-                    .createComplaint(this.complaint)
-                    .then((res) => {
-                        if (res && res._id) {
-                            this.complaint._id = res._id;
-                            this.complaints.push(this.complaint);
-                            this.messageService.add({
-                                severity: 'success',
-                                summary: 'Successful',
-                                detail: 'Complaint Created',
-                                life: 3000,
-                            });
-                        } else {
-                            console.error('Failed to create complaint:', res);
-                            this.messageService.add({
-                                severity: 'error',
-                                summary: 'Error',
-                                detail: 'Failed to create complaint',
-                                life: 3000,
-                            });
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error creating complaint:', error);
+                });
+        } else {
+            this.complaintService
+                .createComplaint(this.complaint)
+                .then((res) => {
+                    if (res && res._id) {
+                        this.complaint = res;
+                        this.complaints.push(this.complaint);
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Successful',
+                            detail: 'Complaint Created',
+                            life: 3000,
+                        });
+                    } else {
+                        console.error('Failed to create complaint:', res);
                         this.messageService.add({
                             severity: 'error',
                             summary: 'Error',
                             detail: 'Failed to create complaint',
                             life: 3000,
                         });
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error creating complaint:', error);
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: 'Failed to create complaint',
+                        life: 3000,
                     });
-            }
+                });
+        }
 
-            this.complaints = [...this.complaints];
-            this.complaintDialog = false; 
-            this.complaint = {
-                id: '',
-                medicineId: 0,
-                userId: 0,
-                title: '',
-                description: '',
-                type: '',
-                 };    }
+        this.complaints = [...this.complaints];
+        this.complaintDialog = false;
+        this.complaint = {
+            id: '',
+            medicineId: 0,
+            userId: 0,
+            title: '',
+            description: '',
+            type: '',
+        };
+    }
 
     findIndexById(_id: string | undefined): number {
         if (_id === undefined) {

@@ -41,7 +41,7 @@
                     </li>
                 </ul>
                 <div
-                    class="flex justify-content-between lg:block border-top-1 lg:border-top-none surface-border py-3 lg:py-0 mt-3 lg:mt-0">
+                    class="flex justify-content-between lg:block border-top-1 lg:border-top-none surface-border py-3 lg:py-0 mt-3 lg:mt-0" *ngIf=!isLogged>
                     <button pButton pRipple label="Login"
                         class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"
                         (click)="onLoginClick()"></button>
@@ -49,6 +49,13 @@
                         class="p-button-rounded border-none ml-5 font-light line-height-2 bg-blue-500 text-white"
                         (click)="onRegisterClick()"></button>
                 </div>
+                <div
+                class="flex justify-content-between lg:block border-top-1 lg:border-top-none surface-border py-3 lg:py-0 mt-3 lg:mt-0" *ngIf=isLogged>
+                <button pButton pRipple label="Dashboard"
+                    class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"
+                    (click)="onDashboardClick()"></button>
+
+            </div>
             </div>
         </div>
 

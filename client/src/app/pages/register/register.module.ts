@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { RouterModule } from '@angular/router';
+import { ToastModule } from 'primeng/toast';
+import { RippleModule } from 'primeng/ripple';
 @NgModule({
     imports: [
         CommonModule,
@@ -17,7 +19,11 @@ import { RouterModule } from '@angular/router';
         InputTextModule,
         FormsModule,
         PasswordModule,
-        RouterModule
+        RouterModule,
+        ToastModule,
+        RippleModule,
+
+
     ],
     declarations: [RegisterComponent]
 })
