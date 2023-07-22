@@ -58,6 +58,17 @@ router.get('/api/user', checkAuth, async (req, res) => {
     res.status(error.response ? error.response.status : 500).send({ error: errorMessage });
   }
 });
+
+
+router.put('/api/user/:id', checkAuth, async (req, res) => {
+  try {
+    const response = await clientAxios(BASE_URL, req.headers.authorization).put(req.path, req.body);
+    res.send(response.data);
+  } catch (error) {
+    const errorMessage = error.response ? error.response.data.error : 'Failed to fetch user data.';
+    res.status(error.response ? error.response.status : 500).send({ error: errorMessage });
+  }
+});
 router.post('/api/user/forget-password', async (req, res) => {
   try {
     const response = await clientAxios(BASE_URL, req.headers.authorization).post(req.path, req.body);
