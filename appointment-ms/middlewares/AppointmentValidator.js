@@ -11,7 +11,7 @@ const validateAppointmentCreation = async (req, res, next) => {
   });
 
   if (existingAppointment) {
-    return res.status(400).json({ error: 'Another appointment already exists at the same time.' });
+    return res.status(419).json({ error: 'Another appointment already exists at the same time.' });
   }
 
   // If no overlapping appointment found, proceed to the next middleware/route handler

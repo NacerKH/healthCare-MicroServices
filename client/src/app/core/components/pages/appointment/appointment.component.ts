@@ -145,6 +145,7 @@ export class AppointmentComponent implements OnInit {
                     .updateAppointment(this.appointment._id, this.appointment)
                     .then((res) => {
                         if (res) {
+                            console.log('res', res._id);
                             const index = this.findIndexById(res._id);
                             if (index !== -1) {
                                 this.appointments[index] = res;
@@ -182,6 +183,7 @@ export class AppointmentComponent implements OnInit {
                 this.appointmentService
                     .createAppointment(this.appointment)
                     .then((res) => {
+                        console.log( res);
                         if (res && res._id) {
                             this.appointment._id = res._id;
                             this.appointments.push(this.appointment);

@@ -3,6 +3,7 @@ import { Appointment } from '../../../api/Appointment';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { AppointmentService } from '../../../service/appointment.service';
+import { AuthentificationService } from 'src/app/core/service/authentification.service';
 @Component({
     templateUrl: './appointment-front.component.html',
     providers: [MessageService],
@@ -30,20 +31,26 @@ export class AppointmentFrontComponent implements OnInit {
 
     constructor(
         private appointmentService: AppointmentService,
-        private messageService: MessageService
+        private messageService: MessageService, private _authentification : AuthentificationService
     ) {}
 
     ngOnInit() {
-        this.appointmentService
-            .getAppointmentsByMedicine("614b2d8726b2f7a6e8a3d6c5")
-            .then((data) => {
-                this.appointments = data || []; // Assign data to appointments or use an empty array if data is undefined
-                console.log('hello', this.appointments);
-            })
-            .catch((error) => {
-                console.error('Error fetching appointments:', error);
-                this.appointments = []; // Assign an empty array in case of an error
-            });
+        const role = this._authentification.getRole();
+        console.log(role)
+        const userId = this._authentification.getUserId();
+        console.log(userId)
+        if(userId ){
+
+            if( role =='patient'){
+                this.getAppoinmentByUserId(userId)
+            }
+
+            if( role == "medecin")
+            {
+                this.getAppoinmentByMedicineId(userId)
+            }
+        }
+
 
         this.cols = [
             { field: 'medicalSituation', header: 'Medical Situation' },
@@ -255,5 +262,33 @@ export class AppointmentFrontComponent implements OnInit {
         }
 
         return true; // Validation passed
+    }
+
+
+    getAppoinmentByMedicineId(medicineId: string) {
+        this.appointmentService
+        .getAppointmentsByMedicine(medicineId)
+        .then((data) => {
+            this.appointments = data || []; // Assign data to appointments or use an empty array if data is undefined
+            console.log('hello', this.appointments);
+        })
+        .catch((error) => {
+            console.error('Error fetching appointments:', error);
+            this.appointments = []; // Assign an empty array in case of an error
+        });
+
+    }
+    getAppoinmentByUserId(userId: string) {
+        this.appointmentService
+        .getAppointmentsByUser(userId)
+        .then((data) => {
+            this.appointments = data || []; // Assign data to appointments or use an empty array if data is undefined
+            console.log('hello', this.appointments);
+        })
+        .catch((error) => {
+            console.error('Error fetching appointments:', error);
+            this.appointments = []; // Assign an empty array in case of an error
+        });
+
     }
 }

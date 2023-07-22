@@ -10,8 +10,17 @@
                 </div>
 
                 <div>
+                    <label for="pseudo" class="block text-900 text-xl font-medium mb-2">Pseudo</label>
+                    <input id="pseudo" [(ngModel)]="pseudo"  type="text" placeholder="Pseudo " pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" >
                     <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
-                    <input id="email1" type="text" placeholder="Email address" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
+                    <input id="email1" [(ngModel)]="email" type="text" placeholder="Email address" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem" >
+                    <label for="role" class="block text-900 text-xl font-medium mb-2">Role</label>
+
+                    <select class="w-full md:w-30rem mb-5" style="padding:1rem" [(ngModel)]="role" >
+                        <option disabled selected>Choose your role</option>
+                        <option value="patient">Patient</option>
+                        <option value="medecin">Medecin</option>
+                    </select>
 
                     <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
                     <p-password id="password1" [(ngModel)]="password" placeholder="Password" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
@@ -21,7 +30,7 @@
                             <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
                             <label for="rememberme1">Remember me</label>
                         </div>
-                        <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Forgot password?</a>
+                        <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)" [routerLink]="['/forget-password']">Forgot password?</a>
                     </div>
                     <button pButton pRipple label="Register" class="w-full p-3 text-xl" (click)="Register()"></button>
                 </div>

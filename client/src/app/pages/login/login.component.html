@@ -1,6 +1,7 @@
+<p-toast></p-toast>
 <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
     <p-toast></p-toast>
-    
+
     <div class="flex flex-column align-items-center justify-content-center">
         <img src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg"
             alt="Sakai logo" class="mb-5 w-6rem flex-shrink-0">
@@ -28,7 +29,7 @@
                             <label for="rememberme1">Remember me</label>
                         </div>
                         <a class="font-medium no-underline ml-2 text-right cursor-pointer"
-                            style="color: var(--primary-color)">Forgot password?</a>
+                            style="color: var(--primary-color)" [routerLink]="['/forget-password']">Forgot password?</a>
                     </div>
                     <button pButton pRipple label="Sign In" class="w-full p-3 text-xl" (click)="signIn()"></button>
                 </div>

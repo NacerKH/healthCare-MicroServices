@@ -19,11 +19,11 @@ module.exports.createAppointment = async (req, res) => {
     userId: req.body.userId,
     medicineId: req.body.medicineId,
     emailMed: req.body.emailMed,
-    probableStartTime: req.body.probableStartTime,
-    actualEndTime: req.body.actualEndTime,
+    probableStartTime: req.body.probableStartTime.replace(/\s/g, ''),
+    actualEndTime: req.body.actualEndTime.replace(/\s/g, ''),
     appointmentStatus: req.body.appointmentStatus,
     medicalSituation: req.body.medicalSituation,
-    notes: req.body.notes,
+    notes: req.body.notes?? '',
     createdBy: req.body.createdBy
   });
 
@@ -32,7 +32,7 @@ module.exports.createAppointment = async (req, res) => {
 
     const newAppointmentDetail = new AppointmentDetailModel({
       appointmentId: savedAppointment._id,
-      detailField: req.body.detailField,
+      detailField: req.body.detailField??" ",
       // Add more fields as needed
     });
 
@@ -47,18 +47,19 @@ module.exports.createAppointment = async (req, res) => {
       text: 'A new appointment has been created.'
     };
 
-    // Send the email
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error('Error sending email:', error);
-      } else {
-        console.log('Email sent:', info);
-      }
-    });
+    // // Send the email
+    // transporter.sendMail(mailOptions, (error, info) => {
+    //   if (error) {
+    //     return res.status(500).send({ message: error, });
+
+    //   } else {
+    //     console.log('Email sent:', info);
+    //   }
+    // });
 
     return res.status(201).json(savedAppointment);
   } catch (err) {
-    return res.status(400).send(err);
+    return res.status(500).send({ message: err });
   }
 };
 

@@ -1,19 +1,19 @@
 const appointmentController = require('../controllers/AppointmentController');
 const appointmentValidator = require('../middlewares/AppointmentValidator');
-const { upload } =require('../middlewares/Upload');
+const { upload } = require('../middlewares/Upload');
 
 const router = require('express').Router();
 
 
 
 // Create a new appointment
-router.post('/addAppointment', appointmentValidator.validateAppointmentCreation,appointmentController.createAppointment);
+router.post('/addAppointment', appointmentValidator.validateAppointmentCreation, appointmentController.createAppointment);
 
 // Get all appointments
-router.get('/appointments',appointmentController.getAllAppointment);
+router.get('/appointments', appointmentController.getAllAppointment);
 
 // Get a specific appointment
-router.get('/appointment/:id',appointmentController.getAppointment);
+router.get('/appointment/:id', appointmentController.getAppointment);
 
 // Delete an appointment
 router.delete('/appointment/:id', appointmentController.deleteAppointment);

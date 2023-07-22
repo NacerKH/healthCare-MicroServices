@@ -13,8 +13,11 @@ import { AuthGuard } from './auth.guard';
             { path: '', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) },
             { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
             { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },
+            { path: 'forget-password', loadChildren: () => import('./pages/forget-password/forget-password.module').then(m => m.ForgetPasswordModule) },
+            { path: 'reset-password/:token', loadChildren: () => import('./pages/reset-password/reset-password.module').then(m => m.ResetPasswordModule) },
+
             {
-                path: 'backoffice', component: AppLayoutComponent,
+                path: 'backoffice', component: AppLayoutComponent, canActivate: [AuthGuard],
                 children: [
                     { path: '', loadChildren: () => import('./core/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path: 'uikit', loadChildren: () => import('./core/components/uikit/uikit.module').then(m => m.UIkitModule) },
