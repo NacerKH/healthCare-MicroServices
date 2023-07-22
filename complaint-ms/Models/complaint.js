@@ -4,6 +4,15 @@ const mongoose = require('mongoose');
 
 const ComplaintSchema = new mongoose.Schema({
 
+    userId: {
+        type: String,
+        required: true
+      },
+      medecineId: {
+        type: String,
+        required: true
+      },
+    
     title: {
         type: String,
         required: true,
@@ -15,11 +24,7 @@ const ComplaintSchema = new mongoose.Schema({
     },
       type : {
         type: String,
-      }, 
-
-    userId : {
-        type:Number,
-    }
+      }
 
 },
     {

@@ -26,7 +26,7 @@ import { AuthGuard } from './auth.guard';
                     { path: 'blocks', loadChildren: () => import('./core/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'pages', loadChildren: () => import('./core/components/pages/pages.module').then(m => m.PagesModule) }
                 ]
-                //, data: { role: 'admin' }
+                , data: { role: 'admin' }
             },
             {
                 path: 'frontoffice', component: AppFrontOfficeComponent,
