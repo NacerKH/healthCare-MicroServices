@@ -1,0 +1,31 @@
+/* forum-banner.component.scss */
+
+.banner-container {
+    background-color: #4285f4; /* Replace with your desired background color */
+    color: #fff; /* Text color for the banner */
+  
+    /* Center the banner */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    /* Set the height of the banner */
+    height: 150px; /* Adjust the height as needed */
+  
+    /* Add some padding and margin for aesthetics */
+    padding: 20px;
+  }
+  
+  .banner-text {
+    text-align: center;
+  }
+  
+  .banner-text h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  .banner-text p {
+    font-size: 18px;
+  }
+  
