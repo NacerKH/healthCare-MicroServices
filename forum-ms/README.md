@@ -38,3 +38,55 @@ test:
 
 curl -v -X DELETE http://127.0.0.1:5012/api/v1/posts/64ab2ea0a968159324099785
 
+PUT /api/v1/:_id
+============================================
+update a post text by _id
+
+test:
+
+curl -v -X PUT http://127.0.0.1:5012/api/v1/64ab2ea0a968159324099785 -d '{\"message\":\"this my new aaaaaaaa post\"}'
+
+PATCH /api/v1/like-post/:_id
+============================================
+like a post
+
+test:
+
+curl -v -X PATCH http://127.0.0.1:5012/api/v1/like-post/64ab2ea0a968159324099785 -d '{\"id\":\"64ab2b73a5a29af9bdd83fca\"}'
+
+
+PATCH /api/v1/unlike-post/:_id
+============================================
+unlike a post
+
+test:
+
+curl -v -X PATCH http://127.0.0.1:5012/api/v1/unlike-post/64ab2ea0a968159324099785 -d '{\"id\":\"64ab2b73a5a29af9bdd83fca\"}'
+
+PATCH /api/v1/comment-post/_id
+============================================
+
+comment a post
+
+test:
+
+curl -v -X PATCH http://127.0.0.1:5012/api/v1/comment-post/64ab2ea0a968159324099785 -d '{\"commenterId\":\"64ab2c71a5a29af9bdd83fd0\",\"commenterPseudo\":\"testpseudo\",\"text\":\"Comment here please!\"}'
+
+PATCH /api/v1/edit-comment-post/_id
+==============================================
+
+edit comment on a post
+
+test:
+
+curl -v -X PATCH http://127.0.0.1:5012/api/v1/edit-comment-post/64ab2ea0a968159324099785 -d '{\"commentId\":\"64b713d8a38231c35b202124\",\"text\":\"hello looks good for me here goes your update!!\"}'
+
+
+DELETE /api/v1/delete-comment-post/_id
+==============================================
+
+edit comment on a post
+
+test:
+
+curl -v -X PATCH http://127.0.0.1:5012/api/v1/edit-comment-post/64ab2ea0a968159324099785 -d '{\"commentId\":\"64b713d8a38231c35b202124\"}'

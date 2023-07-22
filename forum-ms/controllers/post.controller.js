@@ -1,4 +1,3 @@
-//const UserModel = require('../models/user.model');
 const PostModel = require('../Models/post.model');
 const ObjectID = require('mongoose').Types.ObjectId;
 const fs = require("fs");
@@ -84,7 +83,7 @@ module.exports.likePost = async (req, res) => {
             { new: true },
             (err, docs) => {
                 if (err) return res.status(400).send(err);
-                else return res.status(201).send("created " +req.params.id);
+                else return res.status(200).send('{"likePost":"Success '+req.params.id+'"}');
             }
         );
 //        UserModel.findByIdAndUpdate(
@@ -118,19 +117,10 @@ module.exports.unlikePost = async (req, res) => {
             { new: true },
             (err, docs) => {
                 if (err) return res.status(400).send(err);
+                else return res.status(200).send('{"unlikePost":"Success '+req.params.id+'"}');
+
             }
         );
-//        UserModel.findByIdAndUpdate(
-//            req.body.id,
-//            {
-//                $pull: { likes: req.params.id },
-//            },
-//            { new: true },
-//            (err, docs) => {
-//                if (!err) res.send(docs);
-//                else return res.status(400).send(err);
-//            }
-//        );
     } catch (err) {
         return res.status(400).send(err);
     }
@@ -149,13 +139,17 @@ module.exports.commentPost = (req, res) => {
                         commenterId: req.body.commenterId,
                         commenterPseudo: req.body.commenterPseudo,
                         text: req.body.text,
+                        gifurl: req.body.giphyurl,
                         timestamp: new Date().getTime(),
                     },
                 },
             },
             { new: true },
             (err, docs) => {
-                if (!err) return res.send(docs);
+                if (!err) {
+                    return res.send(docs);
+
+                }
                 else return res.status(400).send(err);
             }
         );

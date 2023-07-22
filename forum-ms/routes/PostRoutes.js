@@ -5,7 +5,7 @@ const upload= multer();
 
 
 
-router.get('/', postController.readAllPosts);
+router.get('/posts', postController.readAllPosts);
 router.get('/posts/:posterId', postController.readPost);
 router.post('/createpost', postController.createPost);
 router.delete('/:id',postController.deletePost);
