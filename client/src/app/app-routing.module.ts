@@ -13,15 +13,17 @@ import { AuthGuard } from './auth.guard';
             { path: '', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) },
             { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
             { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },
+            { path: 'forum', loadChildren: () => import('./pages/forum/forum.module').then(m => m.ForumModule) },
             {
-                path: 'backoffice', component: AppLayoutComponent,  canActivate: [AuthGuard],
+                path: 'backoffice', component: AppLayoutComponent,  
                 children: [
                     { path: '', loadChildren: () => import('./core/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path: 'uikit', loadChildren: () => import('./core/components/uikit/uikit.module').then(m => m.UIkitModule) },
                     { path: 'utilities', loadChildren: () => import('./core/components/utilities/utilities.module').then(m => m.UtilitiesModule) },
                     { path: 'documentation', loadChildren: () => import('./core/components/documentation/documentation.module').then(m => m.DocumentationModule) },
                     { path: 'blocks', loadChildren: () => import('./core/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
-                    { path: 'pages', loadChildren: () => import('./core/components/pages/pages.module').then(m => m.PagesModule) }
+                    { path: 'pages', loadChildren: () => import('./core/components/pages/pages.module').then(m => m.PagesModule) },
+
                 ]
                 , data: { role: 'admin' }
             },
