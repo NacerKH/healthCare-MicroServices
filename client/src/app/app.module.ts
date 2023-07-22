@@ -19,6 +19,9 @@ import { AuthInterceptor } from './core/helpers/auth.interceptor';
 import { MessageService } from 'primeng/api';
 import { AuthGuard } from './auth.guard';
 import { ComplaintService } from './core/service/complaint.service';
+import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+
 
 
 @NgModule({

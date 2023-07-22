@@ -15,6 +15,8 @@ router.post("/login", authController.signIn);
 
 router.post("/email/send-email-verification", EmailVerficationController.sendEmailVerification);
 router.get("/email/verify-email/:verificationToken", EmailVerficationController.verificationEmail);
+router.post("/forget-password", authController.forgetPassword);
+router.post("/reset-password/:token", authController.resetPassword );
 // Grouped routes with requireAuth middleware
 //router.use(requireAuth);
 

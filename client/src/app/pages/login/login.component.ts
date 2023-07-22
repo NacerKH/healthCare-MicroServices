@@ -39,7 +39,7 @@ export class LoginComponent {
             }
             localStorage.setItem('token', res.token);
             localStorage.setItem('role', res.role);
-            localStorage.setItem('user', res.user);
+            localStorage.setItem('user', res.user_id);
             if (res.role == 'patient') {
                 this.router.navigate(['/frontoffice']);
 
