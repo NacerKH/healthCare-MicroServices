@@ -16,30 +16,30 @@ export class ForumComponent implements OnInit {
     ForumDialog: boolean = false;
     postForm!: FormGroup;
 
-    
+
     // deleteAppointmentDialog: boolean = false;
 
     // deleteAppointmentsDialog: boolean = false;
-    user: User={"pseudo":"pseudoNom"};
+    user: User = { "pseudo": "pseudoNom" };
     posts: Forum[] = [];
-    myposts: Forum[]= [];
-    MyId: string="Empty";
+    myposts: Forum[] = [];
+    MyId: string = "Empty";
     data?: string;
 
     constructor(
         public forumService: ForumService,
-        private messageService: MessageService,private _userService:AuthentificationService,
+        private messageService: MessageService, private _userService: AuthentificationService,
         private fb: FormBuilder
-        ) {}
-    
-    
+    ) { }
+
+
     ngOnInit() {
         // setMyId(){
-            
+
         this.postForm = this.fb.group({
             postContent: ['', Validators.required]
         });
-  
+
 
         // }
         this.forumService
@@ -53,7 +53,7 @@ export class ForumComponent implements OnInit {
                 console.error('Error fetching posts:', error);
                 this.posts = []; // Assign an empty array in case of an error
             });
-            this.forumService
+        this.forumService
             .getPostsById(this.MyId)
             .then((data) => {
                 //this.posts = JSON.parse(this.postsJson);
@@ -65,18 +65,18 @@ export class ForumComponent implements OnInit {
                 this.myposts = []; // Assign an empty array in case of an error
             });
 
-            // this._userService.getUserProfile().subscribe((data)=>{
-            //     this.user=data
-            // })
+        // this._userService.getUserProfile().subscribe((data)=>{
+        //     this.user=data
+        // })
 
-}
+    }
 
-onSubmit(): void {
-    // Handle the form submission here (e.g., send the post to the server)
-    const postContent = this.postForm.get('postContent')?.value;
-    console.log('Post submitted:', postContent);
+    onSubmit(): void {
+        // Handle the form submission here (e.g., send the post to the server)
+        const postContent = this.postForm.get('postContent')?.value;
+        console.log('Post submitted:', postContent);
 
-    // Reset the form after submission (optional)
-    this.postForm.reset();
-  }
+        // Reset the form after submission (optional)
+        this.postForm.reset();
+    }
 }

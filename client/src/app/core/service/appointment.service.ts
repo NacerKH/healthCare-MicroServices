@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class AppointmentService {
 
-    private apiUrl: string ="http://127.0.0.1:5001/api";
+    private apiUrl: string =environment.baseUrl;
 
     constructor(private http: HttpClient) { }
 

@@ -21,6 +21,7 @@ import { AuthGuard } from './auth.guard';
 import { ComplaintService } from './core/service/complaint.service';
 import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { ForumService } from './core/service/Forum.service';
 
 
 
@@ -37,7 +38,7 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-        CountryService, CustomerService, EventService, IconService, NodeService,
+        CountryService, CustomerService, EventService, IconService, NodeService,ForumService,
         PhotoService, ProductService, AppointmentService,ComplaintService, FrontOfficeService, MessageService, AuthGuard
     ],
     bootstrap: [AppComponent]

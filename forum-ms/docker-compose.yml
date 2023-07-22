@@ -29,7 +29,7 @@ services:
        volumes :
         - dbdata:/data/db
        ports:
-        - "27017:27017"
+        - "27021:27017"
        networks:
        - medest-network 
        
