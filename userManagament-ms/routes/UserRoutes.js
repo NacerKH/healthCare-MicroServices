@@ -16,11 +16,11 @@ router.post("/login", authController.signIn);
 router.post("/email/send-email-verification", EmailVerficationController.sendEmailVerification);
 router.get("/email/verify-email/:verificationToken", EmailVerficationController.verificationEmail);
 // Grouped routes with requireAuth middleware
-router.use(requireAuth);
+//router.use(requireAuth);
 
 
 router.use(checkUser);
-// router.use(checkEmailVerification);
+//router.use(checkEmailVerification);
 router.get("/logout", authController.logout);
 //user:DB
 router.get("/", adminController.getAllUsers);
