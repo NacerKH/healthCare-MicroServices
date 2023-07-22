@@ -19,7 +19,7 @@ import { AuthGuard } from './auth.guard';
             { path: 'forum', loadChildren: () => import('./pages/forum/forum.module').then(m => m.ForumModule) },
             {
                 path: 'backoffice', component: AppLayoutComponent, canActivate: [AuthGuard],
-                path: 'backoffice', component: AppLayoutComponent,  
+               
                 children: [
                     { path: '', loadChildren: () => import('./core/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path: 'uikit', loadChildren: () => import('./core/components/uikit/uikit.module').then(m => m.UIkitModule) },
