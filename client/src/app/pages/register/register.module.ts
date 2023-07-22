@@ -10,6 +10,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { RouterModule } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
+import { MessageModule } from 'primeng/message';
+import { MessageService } from 'primeng/api';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -22,9 +25,9 @@ import { RippleModule } from 'primeng/ripple';
         RouterModule,
         ToastModule,
         RippleModule,
-
-
     ],
-    declarations: [RegisterComponent]
+    declarations: [RegisterComponent],
+    providers: [MessageService,MessageModule]
+
 })
 export class RegisterModule { }
