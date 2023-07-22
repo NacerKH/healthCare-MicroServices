@@ -58,7 +58,7 @@ export class UserService {
     }
 
     deleteUser(id: string) {
-        const url = `${this.url}/User/${id}`;
+        const url = `${this.url}/${id}`;
         return this.http.delete<any>(url)
             .toPromise()
             .then(res => res.data as any)

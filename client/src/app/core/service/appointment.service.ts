@@ -1,16 +1,17 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Appointment } from '../api/Appointment';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AppointmentService {
 
-    private apiUrl: string ='http://127.0.0.1:5005/api/v1';
+    private apiUrl: string ="http://127.0.0.1:5001/api";
 
     constructor(private http: HttpClient) { }
 
     getAllAppointments(): Promise<Appointment[] | undefined>  {
-        return this.http.get<Appointment[]>(`${this.apiUrl}/appointments`)
+        return this.http.get<Appointment[]>(`${this.apiUrl}/v1/appointments`)
           .toPromise()
           .then((res) => {
             return res;
@@ -22,7 +23,7 @@ export class AppointmentService {
       }
 
     getAppointmentById(id: string) {
-        const url = `${this.apiUrl}/appointment/${id}`;
+        const url = `${this.apiUrl}/v1/appointment/${id}`;
         return this.http.get<any>(url)
             .toPromise()
             .then(res => res.data as any)
@@ -30,7 +31,8 @@ export class AppointmentService {
     }
 
     createAppointment(appointment: Appointment): Promise<Appointment | undefined> {
-        return this.http.post<Appointment>(`${this.apiUrl}/addAppointment`, appointment)
+        console.log(appointment);
+        return this.http.post<Appointment>(`${this.apiUrl}/v1/addAppointment`, appointment)
           .toPromise()
           .then((res) => {
             return res;
@@ -42,7 +44,7 @@ export class AppointmentService {
       }
 
     updateAppointment(id: string, appointment: Appointment): Promise<Appointment | undefined> {
-        return this.http.put<Appointment>(`${this.apiUrl}/appointment/${id}`, appointment)
+        return this.http.put<Appointment>(`${this.apiUrl}/v1/appointment/${id}`, appointment)
           .toPromise()
           .then((res) => {
             return res;
@@ -54,7 +56,7 @@ export class AppointmentService {
       }
 
     deleteAppointment(id: string) {
-        const url = `${this.apiUrl}/appointment/${id}`;
+        const url = `${this.apiUrl}/v1/appointment/${id}`;
         return this.http.delete<any>(url)
             .toPromise()
             .then(res => res.data as any)
@@ -63,7 +65,7 @@ export class AppointmentService {
 
     findAppointmentsByMedicalSituation(medicalSituation: string): Promise<Appointment[]> {
         const params = new HttpParams().set('medicalSituation', medicalSituation);
-        return this.http.get<any[]>(this.apiUrl + '/appointments?', { params })
+        return this.http.get<any[]>(this.apiUrl + '/v1/appointments?', { params })
           .toPromise()
           .then(res => res as Appointment[]) // Cast the response to an array of Appointment objects
           .catch((error: any) => {
@@ -73,7 +75,8 @@ export class AppointmentService {
       }
 
     getAppointmentsByUser(userId: string): Promise<Appointment[] | undefined> {
-        const url = `${this.apiUrl}/appointments/user/${userId}`;
+
+        const url = `${this.apiUrl}/v1/appointments/user/${userId}`;
         return this.http.get<Appointment[]>(url)
             .toPromise()
             .then((res) => {
@@ -85,7 +88,7 @@ export class AppointmentService {
             });      }
 
     getAppointmentsByMedicine(medicineId: string): Promise<Appointment[] | undefined> {
-        const url = `${this.apiUrl}/appointments/medicine/${medicineId}`;
+        const url = `${this.apiUrl}/v1/appointments/medicine/${medicineId}`;
         return this.http.get<Appointment[]>(url)
             .toPromise()
             .then((res) => {

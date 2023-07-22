@@ -9,7 +9,7 @@ const BASE_URL = process.env.URL_AUTHORIZATION_MS
 console.log("BASE_URL", BASE_URL)
 const api = clientAxios(BASE_URL)
 
-router.post('/api/user/login', async(req, res) => {
+router.post('/api/user/login', async (req, res) => {
   try {
     const response = await clientAxios(BASE_URL).post(req.path, req.body);
     res.send(response.data)
@@ -59,4 +59,33 @@ router.get('/api/user', checkAuth, async (req, res) => {
   }
 });
 
+
+router.put('/api/user/:id', checkAuth, async (req, res) => {
+  try {
+    const response = await clientAxios(BASE_URL, req.headers.authorization).put(req.path, req.body);
+    res.send(response.data);
+  } catch (error) {
+    const errorMessage = error.response ? error.response.data.error : 'Failed to fetch user data.';
+    res.status(error.response ? error.response.status : 500).send({ error: errorMessage });
+  }
+});
+router.post('/api/user/forget-password', async (req, res) => {
+  try {
+    const response = await clientAxios(BASE_URL, req.headers.authorization).post(req.path, req.body);
+    res.send(response.data);
+  } catch (error) {
+    const errorMessage = error.response ? error.response.data.error : 'Failed to fetch user data.';
+    res.status(error.response ? error.response.status : 500).send({ error: errorMessage });
+  }
+});
+
+router.post('/api/user/reset-password/:token', async (req, res) => {
+  try {
+    const response = await clientAxios(BASE_URL, req.headers.authorization).post(req.path, req.body);
+    res.send(response.data);
+  } catch (error) {
+    const errorMessage = error.response ? error.response.data.error : 'Failed to fetch user data.';
+    res.status(error.response ? error.response.status : 500).send({ error: errorMessage });
+  }
+});
 module.exports = router

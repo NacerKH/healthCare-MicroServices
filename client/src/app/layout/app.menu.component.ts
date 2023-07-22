@@ -71,10 +71,15 @@ export class AppMenuComponent implements OnInit {
                     //     icon: 'pi pi-fw pi-globe',
                     //     routerLink: ['']
                     // },
-                      {
+                    {
                         label: 'users',
                         icon: 'pi pi-fw pi-user',
                         routerLink: ['/backoffice/pages/users']
+                    },
+                    {
+                        label: 'complaint',
+                        icon: 'pi pi-fw pi-user',
+                        routerLink: ['/backoffice/pages/complaint']
                     },
                     // {
                     //     label: 'Auth',

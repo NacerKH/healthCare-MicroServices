@@ -3,8 +3,8 @@ export interface Appointment {
     userId?: string;
     medicineId?: string;
     emailMed?: string;
-    probableStartTime?: string;
-    actualEndTime?: string;
+    probableStartTime?: Date;
+    actualEndTime?: Date;
     appointmentStatus?: string;
     medicalSituation?: string;
     notes?: string;

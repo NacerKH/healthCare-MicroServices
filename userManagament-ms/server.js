@@ -5,6 +5,7 @@ require('dotenv').config({ path: './config/.env' });
 require('./config/db');
 const { checkUser, requireAuth } = require('./middlewares/AuthentificationMiddleware');
 const cors = require('cors');
+var bodyParser = require('body-parser');
 
 const app = express();
 
@@ -19,8 +20,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cookieParser());
 
 //jwt

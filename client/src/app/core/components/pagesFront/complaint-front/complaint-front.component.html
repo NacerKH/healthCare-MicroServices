@@ -1,0 +1,126 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedComplaints()" [disabled]="!selectedComplaints || !selectedComplaints.length"></button>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="right">
+          <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+          <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+        </ng-template>
+      </p-toolbar>
+
+      <p-table #dt [value]="complaints" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['title', 'description', 'type', 'userId']"
+        [paginator]="true" [rowsPerPageOptions]="rowsPerPageOptions" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedComplaints"
+        selectionMode="multiple" [rowHover]="true" dataKey="_id">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Manage Complaints</h5>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..." class="w-full sm:w-auto" />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th *ngFor="let col of columns" pSortableColumn="{{ col.field }}">
+              {{ col.header }}
+              <p-sortIcon field="{{ col.field }}"></p-sortIcon>
+            </th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-complaint>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="complaint"></p-tableCheckbox>
+            </td>
+            <td>{{ complaint.medecineId }}</td>
+            <td>{{ complaint.userId }}</td>
+            <td>{{ complaint.title }}</td>
+            <td>{{ complaint.description }}</td>
+            <td>{{ complaint.type }}</td>
+            
+            <td>
+              <div class="flex">
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editComplaint(complaint)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteComplaint(complaint)"></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <!-- Complaint Dialog -->
+    <p-dialog [(visible)]="complaintDialog" [style]="{ width: '450px' }" header="Complaint Details" [modal]="true" class="p-fluid">
+      <ng-template pTemplate="content">
+        <div class="field">
+          <label for="userId">medecin ID</label>
+          <input type="text" pInputText id="userId" [(ngModel)]="complaint.userId" required [ngClass]="{ 'ng-invalid ng-dirty': submitted && !complaint.userId }" />
+          <small class="ng-dirty ng-invalid" *ngIf="submitted && !complaint.userId">medecin ID is required.</small>
+        </div>
+        <div class="field">
+          <label for="userId">User ID</label>
+          <input type="text" pInputText id="userId" [(ngModel)]="complaint.userId" required [ngClass]="{ 'ng-invalid ng-dirty': submitted && !complaint.userId }" />
+          <small class="ng-dirty ng-invalid" *ngIf="submitted && !complaint.userId">User ID is required.</small>
+        </div>
+        <div class="field">
+          <label for="title">Title</label>
+          <input type="text" pInputText id="title" [(ngModel)]="complaint.title" required autofocus [ngClass]="{ 'ng-invalid ng-dirty': submitted && !complaint.title }" />
+          <small class="ng-dirty ng-invalid" *ngIf="submitted && !complaint.title">Title is required.</small>
+        </div>
+        <div class="field">
+          <label for="description">Description</label>
+          <input type="text" pInputText id="description" [(ngModel)]="complaint.description" required [ngClass]="{ 'ng-invalid ng-dirty': submitted && !complaint.description }" />
+          <small class="ng-dirty ng-invalid" *ngIf="submitted && !complaint.description">Description is required.</small>
+        </div>
+        <div class="field">
+          <label for="type">Type</label>
+          <input type="text" pInputText id="type" [(ngModel)]="complaint.type" required [ngClass]="{ 'ng-invalid ng-dirty': submitted && !complaint.type }" />
+          <small class="ng-dirty ng-invalid" *ngIf="submitted && !complaint.type">Type is required.</small>
+        </div>
+        
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveComplaint()"></button>
+      </ng-template>
+    </p-dialog>
+
+
+    <!-- Delete Complaint Dialog -->
+    <p-dialog [(visible)]="deleteComplaintDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="complaint">Are you sure you want to delete <b>{{complaint.title}}</b>?</span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteComplaintDialog = false"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+      </ng-template>
+    </p-dialog>
+
+
+    <!-- Delete Multiple Complaints Dialog -->
+    <p-dialog [(visible)]="deleteComplaintsDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span>Are you sure you want to delete selected complaints?</span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteComplaintsDialog = false"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDeleteSelected()"></button>
+      </ng-template>
+    </p-dialog>
+  </div>
+</div>

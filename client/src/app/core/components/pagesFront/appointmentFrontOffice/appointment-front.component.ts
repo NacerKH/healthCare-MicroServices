@@ -3,6 +3,7 @@ import { Appointment } from '../../../api/Appointment';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { AppointmentService } from '../../../service/appointment.service';
+import { AuthentificationService } from 'src/app/core/service/authentification.service';
 @Component({
     templateUrl: './appointment-front.component.html',
     providers: [MessageService],
@@ -28,22 +29,34 @@ export class AppointmentFrontComponent implements OnInit {
 
     rowsPerPageOptions = [5, 10, 20];
 
+    appointmentStatus: any[] = [
+        { label: 'scheduled', value: 'scheduled' },
+        { label: 'completed', value: 'completed' },
+        { label: 'cancelled', value: 'cancelled' },
+    ];
+
     constructor(
         private appointmentService: AppointmentService,
-        private messageService: MessageService
+        private messageService: MessageService, private _authentification : AuthentificationService
     ) {}
 
     ngOnInit() {
-        this.appointmentService
-            .getAppointmentsByMedicine("614b2d8726b2f7a6e8a3d6c5")
-            .then((data) => {
-                this.appointments = data || []; // Assign data to appointments or use an empty array if data is undefined
-                console.log('hello', this.appointments);
-            })
-            .catch((error) => {
-                console.error('Error fetching appointments:', error);
-                this.appointments = []; // Assign an empty array in case of an error
-            });
+        const role = this._authentification.getRole();
+        console.log(role)
+        const userId = this._authentification.getUserId();
+        console.log(userId)
+        if(userId ){
+
+            if( role =='patient'){
+                this.getAppoinmentByUserId(userId)
+            }
+
+            if( role == "medecin")
+            {
+                this.getAppoinmentByMedicineId(userId)
+            }
+        }
+
 
         this.cols = [
             { field: 'medicalSituation', header: 'Medical Situation' },
@@ -182,7 +195,7 @@ export class AppointmentFrontComponent implements OnInit {
                     .createAppointment(this.appointment)
                     .then((res) => {
                         if (res && res._id) {
-                            this.appointment._id = res._id;
+                            this.appointment = res;
                             this.appointments.push(this.appointment);
                             this.messageService.add({
                                 severity: 'success',
@@ -256,4 +269,72 @@ export class AppointmentFrontComponent implements OnInit {
 
         return true; // Validation passed
     }
+
+
+    getAppoinmentByMedicineId(medicineId: string) {
+        this.appointmentService
+        .getAppointmentsByMedicine(medicineId)
+        .then((data) => {
+            this.appointments = data || []; // Assign data to appointments or use an empty array if data is undefined
+            console.log('hello', this.appointments);
+        })
+        .catch((error) => {
+            console.error('Error fetching appointments:', error);
+            this.appointments = []; // Assign an empty array in case of an error
+        });
+
+    }
+    getAppoinmentByUserId(userId: string) {
+        this.appointmentService
+        .getAppointmentsByUser(userId)
+        .then((data) => {
+            this.appointments = data || []; // Assign data to appointments or use an empty array if data is undefined
+            console.log('hello', this.appointments);
+        })
+        .catch((error) => {
+            console.error('Error fetching appointments:', error);
+            this.appointments = []; // Assign an empty array in case of an error
+        });
+
+    }
+
+
+    // Function to sort datetime strings in the format: '2024-08-20T14:30:00.000Z'
+    private formatDateToString(date: Date): string {
+        // Convert the date to the required format: 'yyyy-MM-ddTHH:mm:ss.000Z'
+        const formattedDate = date.toISOString();
+        return formattedDate;
+    }
+
+    // Function to sort datetime strings as dates
+    private sortDatesAsStrings(date1: string, date2: string): number {
+        const date1Obj = new Date(date1);
+        const date2Obj = new Date(date2);
+        return date1Obj.getTime() - date2Obj.getTime();
+    }
+
+    // Function to handle sorting on column header click for datetime columns
+    // For this example, let's assume 'probableStartTime' and 'actualEndTime' are the datetime columns to be sorted.
+    onSort(event: any) {
+        const columnField = event.field;
+
+        if (
+            columnField === 'probableStartTime' ||
+            columnField === 'actualEndTime'
+        ) {
+            // Sort datetime strings as dates
+            this.appointments.sort((a: any, b: any) => {
+                const value1 = this.formatDateToString(a[columnField]);
+                const value2 = this.formatDateToString(b[columnField]);
+                return event.order === -1
+                    ? this.sortDatesAsStrings(value2, value1)
+                    : this.sortDatesAsStrings(value1, value2);
+            });
+        } else {
+            // Sort other columns as usual (assuming they don't need special handling)
+            // Add your usual sorting logic here if needed.
+        }
+    }
+
+
 }

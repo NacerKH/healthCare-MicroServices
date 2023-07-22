@@ -13,8 +13,12 @@ import { AuthGuard } from './auth.guard';
             { path: '', loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule) },
             { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
             { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },
+            { path: 'forget-password', loadChildren: () => import('./pages/forget-password/forget-password.module').then(m => m.ForgetPasswordModule) },
+            { path: 'reset-password/:token', loadChildren: () => import('./pages/reset-password/reset-password.module').then(m => m.ResetPasswordModule) },
+
             { path: 'forum', loadChildren: () => import('./pages/forum/forum.module').then(m => m.ForumModule) },
             {
+                path: 'backoffice', component: AppLayoutComponent, canActivate: [AuthGuard],
                 path: 'backoffice', component: AppLayoutComponent,  
                 children: [
                     { path: '', loadChildren: () => import('./core/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
@@ -28,7 +32,7 @@ import { AuthGuard } from './auth.guard';
                 , data: { role: 'admin' }
             },
             {
-                path: 'frontoffice', component: AppFrontOfficeComponent,
+                path: 'frontoffice', component: AppFrontOfficeComponent, canActivate: [AuthGuard],
                 children: [
                     { path: '', loadChildren: () => import('./core/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path: 'uikit', loadChildren: () => import('./core/components/uikit/uikit.module').then(m => m.UIkitModule) },
@@ -37,6 +41,7 @@ import { AuthGuard } from './auth.guard';
                     { path: 'blocks', loadChildren: () => import('./core/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'pages', loadChildren: () => import('./core/components/pagesFront/pages-front.module').then(m => m.PagesFrontModule) }
                 ]
+                , data: { role: 'user' }
             },
             { path: 'notfound', component: NotfoundComponent },
             { path: '**', redirectTo: '/notfound' },

@@ -30,8 +30,25 @@ export class AuthentificationService {
         return false;
     }
     getRole() {
-    return localStorage.getItem('role');
-      }
+        return localStorage.getItem('role');
+    }
 
+    getUserId() {
+        return localStorage.getItem('user');
+    }
+
+    register(email: string, password: string, role: string, pseudo: string) {
+        let url = this.url + '/user/register';
+        return this.http.post(url, { email: email, password: password, role: role, pseudo: pseudo })
+    }
+
+    forgetPassword(email: string) {
+        let url = this.url + '/user/forget-password';
+        return this.http.post(url, { email: email })
+    }
+    resetPassword(password: string, password_confirmation :string, token: string) {
+        let url = this.url + '/user/reset-password/' + token;
+        return this.http.post(url, { password: password,password_confirmation:password_confirmation})
+    }
 
 }
