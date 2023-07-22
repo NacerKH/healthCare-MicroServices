@@ -14,7 +14,8 @@ import { MessageService } from 'primeng/api';
             margin-right: 1rem;
             color: var(--primary-color) !important;
         }
-    `]
+    `],
+    providers: [MessageService],
 })
 export class LoginComponent {
 
@@ -26,30 +27,52 @@ export class LoginComponent {
     constructor(public layoutService: LayoutService, private router: Router, private _authentificationService: AuthentificationService, private messageService: MessageService) { }
 
     signIn() {
-        // Perform login logic here
+
+        if (this.email?.trim() && this.password?.trim()) {
         this._authentificationService.login(this.email, this.password).subscribe((res: any) => {
             if (res.error) {
                 this.messageService.add({
                     severity: 'error',
                     summary: 'Error',
-                    detail: 'Failed to update appointment',
+                    detail: 'Failed to log in', // You may customize the error message as needed
                     life: 3000,
                 });
                 return;
             }
+
+            // Login successful
             localStorage.setItem('token', res.token);
             localStorage.setItem('role', res.role);
             localStorage.setItem('user', res.user_id);
             if (res.role == 'patient') {
                 this.router.navigate(['/frontoffice']);
-
-            }
-            else {
+            } else {
                 this.router.navigate(['/backoffice']);
-
             }
 
-        });
-
+            this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Logged in successfully', // You may customize the success message as needed
+                    life: 3000,
+                });
+            }, (error) => {
+                console.error('Error logging in:', error);
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Failed to log in',
+                    life: 3000,
+                });
+            });
+        } else {
+            this.messageService.add({
+                severity: 'warn',
+                summary: 'Warning',
+                detail: 'Please provide both email and password',
+                life: 3000,
+            });
+        }
     }
+
 }
