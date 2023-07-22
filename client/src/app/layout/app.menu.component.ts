@@ -102,26 +102,26 @@ export class AppMenuComponent implements OnInit {
                     //         }
                     //     ]
                     // },
-                    {
-                        label: 'Crud',
-                        icon: 'pi pi-fw pi-pencil',
-                        routerLink: ['/backoffice/pages/crud']
-                    },
-                    {
-                        label: 'Timeline',
-                        icon: 'pi pi-fw pi-calendar',
-                        routerLink: ['/backoffice/pages/timeline']
-                    },
-                    {
-                        label: 'Not Found',
-                        icon: 'pi pi-fw pi-exclamation-circle',
-                        routerLink: ['/notfound']
-                    },
-                    {
-                        label: 'Empty',
-                        icon: 'pi pi-fw pi-circle-off',
-                        routerLink: ['/backoffice/pages/empty']
-                    },
+                    // {
+                    //     label: 'Crud',
+                    //     icon: 'pi pi-fw pi-pencil',
+                    //     routerLink: ['/backoffice/pages/crud']
+                    // },
+                    // {
+                    //     label: 'Timeline',
+                    //     icon: 'pi pi-fw pi-calendar',
+                    //     routerLink: ['/backoffice/pages/timeline']
+                    // },
+                    // {
+                    //     label: 'Not Found',
+                    //     icon: 'pi pi-fw pi-exclamation-circle',
+                    //     routerLink: ['/notfound']
+                    // },
+                    // {
+                    //     label: 'Empty',
+                    //     icon: 'pi pi-fw pi-circle-off',
+                    //     routerLink: ['/backoffice/pages/empty']
+                    // },
                 ]
             },
             /*

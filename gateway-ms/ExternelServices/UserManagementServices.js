@@ -18,6 +18,17 @@ router.post('/api/user/login', async (req, res) => {
     res.status(error.response ? error.response.status : 500).send({ error: errorMessage });
   }
 })
+
+
+router.post('/api/user/addUser', async (req, res) => {
+  try {
+    const response = await clientAxios(BASE_URL).post(req.path, req.body);
+    res.send(response.data)
+  } catch (error) {
+    const errorMessage = error.response ? error.response.data.error : 'Something went wrong with the login process.';
+    res.status(error.response ? error.response.status : 500).send({ error: errorMessage });
+  }
+})
 router.post('/api/user/register', async (req, res) => {
   try {
     const response = await clientAxios(BASE_URL, req.headers.authorization).post(req.path, req.body);
@@ -52,6 +63,15 @@ router.get('/api/user/email/verify-email/:verificationToken', async (req, res) =
 router.get('/api/user', checkAuth, async (req, res) => {
   try {
     const response = await clientAxios(BASE_URL, req.headers.authorization).get(req.path, req.body);
+    res.send(response.data);
+  } catch (error) {
+    const errorMessage = error.response ? error.response.data.error : 'Failed to fetch user data.';
+    res.status(error.response ? error.response.status : 500).send({ error: errorMessage });
+  }
+});
+router.delete('/api/user/:id', checkAuth, async (req, res) => {
+  try {
+    const response = await clientAxios(BASE_URL, req.headers.authorization).delete(req.path, req.body);
     res.send(response.data);
   } catch (error) {
     const errorMessage = error.response ? error.response.data.error : 'Failed to fetch user data.';

@@ -6,10 +6,10 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class ForumService {
 
-    private apiUrl: string = environment.baseUrl +'/v1';
+    private apiUrl: string = environment.baseUrl + '/v1';
 
     constructor(private http: HttpClient) { }
-    handleRefresh(): void {  
+    handleRefresh(): void {
         setTimeout(() => {
             window.location.reload();
         }, 500);

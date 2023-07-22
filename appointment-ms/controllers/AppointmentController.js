@@ -47,15 +47,15 @@ module.exports.createAppointment = async (req, res) => {
       text: 'A new appointment has been created.'
     };
 
-    // // Send the email
-    // transporter.sendMail(mailOptions, (error, info) => {
-    //   if (error) {
-    //     return res.status(500).send({ message: error, });
+    // Send the email
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return res.status(500).send({ message: error, });
 
-    //   } else {
-    //     console.log('Email sent:', info);
-    //   }
-    // });
+      } else {
+        console.log('Email sent:', info);
+      }
+    });
 
     return res.status(201).json(savedAppointment);
   } catch (err) {

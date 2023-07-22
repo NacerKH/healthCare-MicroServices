@@ -79,7 +79,7 @@ router.patch('/api/v1/unlike-post/:id', async (req, res) => {
     res.status(error.response ? error.response.status : 500).send({ error: errorMessage });
   }
 });
-router.patch('/api/comment-post/:id', async (req, res) => {
+router.patch('/api/v1/comment-post/:id', async (req, res) => {
   try {
     const response = await clientAxios(BASE_URL, req.headers.authorization).patch(req.path, req.body);
     res.send(response.data);

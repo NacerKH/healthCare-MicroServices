@@ -49,7 +49,7 @@
             <td>{{ complaint.title }}</td>
             <td>{{ complaint.description }}</td>
             <td>{{ complaint.type }}</td>
-            
+
             <td>
               <div class="flex">
                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editComplaint(complaint)"></button>
@@ -65,8 +65,8 @@
     <p-dialog [(visible)]="complaintDialog" [style]="{ width: '450px' }" header="Complaint Details" [modal]="true" class="p-fluid">
       <ng-template pTemplate="content">
         <div class="field">
-          <label for="userId">medecin ID</label>
-          <input type="text" pInputText id="userId" [(ngModel)]="complaint.userId" required [ngClass]="{ 'ng-invalid ng-dirty': submitted && !complaint.userId }" />
+          <label for="medecineId">medecin ID</label>
+          <input type="text" pInputText id="medecineId" [(ngModel)]="complaint.medecineId" required [ngClass]="{ 'ng-invalid ng-dirty': submitted && !complaint.medecineId }" />
           <small class="ng-dirty ng-invalid" *ngIf="submitted && !complaint.userId">medecin ID is required.</small>
         </div>
         <div class="field">
@@ -89,7 +89,7 @@
           <input type="text" pInputText id="type" [(ngModel)]="complaint.type" required [ngClass]="{ 'ng-invalid ng-dirty': submitted && !complaint.type }" />
           <small class="ng-dirty ng-invalid" *ngIf="submitted && !complaint.type">Type is required.</small>
         </div>
-        
+
       </ng-template>
       <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>

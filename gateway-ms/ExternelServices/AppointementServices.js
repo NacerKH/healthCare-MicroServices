@@ -55,7 +55,7 @@ router.delete('/api/v1/appointment/:id', checkAuth, async (req, res) => {
 
 
 
-router.put('/api/v1/appointments/:id', checkAuth, async (req, res) => {
+router.put('/api/v1/appointment/:id', checkAuth, async (req, res) => {
 
   try {
     const response = await clientAxios(BASE_URL, req.headers.authorization).put(`/api/v1/appointment/${req.params.id}`, req.body);
