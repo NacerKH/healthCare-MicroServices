@@ -49,32 +49,32 @@ export class ComplaintComponent implements OnInit {
 
     openNew() {
         this.complaint = {
-            _id: '', // Set default value or null for properties of Complaint
+            _id: '', 
             title: '',
             description: '',
             type: '',
             userId: 0,
         };
             this.submitted = false;
-        this.complaintDialog = true; // Replacing "appointmentDialog" with "complaintDialog"
+            this.complaintDialog = true; 
     }
 
     deleteSelectedComplaints() {
-        this.deleteComplaintsDialog = true; // Replacing "deleteAppointmentsDialog" with "deleteComplaintsDialog"
+        this.deleteComplaintsDialog = true; 
     }
 
     editComplaint(complaint: Complaint) {
-        this.complaint = { ...complaint }; // Replacing "appointment" with "complaint"
-        this.complaintDialog = true; // Replacing "appointmentDialog" with "complaintDialog"
+        this.complaint = { ...complaint }; 
+        this.complaintDialog = true; 
     }
 
     deleteComplaint(complaint: Complaint) {
-        this.deleteComplaintDialog = true; // Replacing "deleteAppointmentDialog" with "deleteComplaintDialog"
-        this.complaint = { ...complaint }; // Replacing "appointment" with "complaint"
+        this.deleteComplaintDialog = true; 
+        this.complaint = { ...complaint }; 
     }
 
     confirmDeleteSelected() {
-        this.deleteComplaintsDialog = false; // Replacing "deleteAppointmentsDialog" with "deleteComplaintsDialog"
+        this.deleteComplaintsDialog = false; 
         this.complaints = this.complaints.filter(
             (val) => !this.selectedComplaints.includes(val)
         );
@@ -89,9 +89,9 @@ export class ComplaintComponent implements OnInit {
     }
 
     confirmDelete() {
-        this.deleteComplaintDialog = false; // Replacing "deleteAppointmentDialog" with "deleteComplaintDialog"
+        this.deleteComplaintDialog = false; 
 
-        // Ensure that the complaint has a valid _id before attempting deletion
+        
         if (this.complaint && this.complaint._id) {
             this.complaintService
                 .deleteComplaint(this.complaint && this.complaint._id)
@@ -108,7 +108,7 @@ export class ComplaintComponent implements OnInit {
                     });
 
                     this.complaint = {
-                        _id: '', // Set default value or null for properties of Complaint
+                        _id: '', 
                         title: '',
                         description: '',
                         type: '',
@@ -128,7 +128,7 @@ export class ComplaintComponent implements OnInit {
     }
 
     hideDialog() {
-        this.complaintDialog = false; // Replacing "appointmentDialog" with "complaintDialog"
+        this.complaintDialog = false; 
         this.submitted = false;
     }
 
@@ -208,7 +208,7 @@ export class ComplaintComponent implements OnInit {
             }
 
             this.complaints = [...this.complaints];
-            this.complaintDialog = false; // Replacing "appointmentDialog" with "complaintDialog"
+            this.complaintDialog = false; 
             this.complaint = {
                 _id: '', // Set default value or null for properties of Complaint
                 title: '',

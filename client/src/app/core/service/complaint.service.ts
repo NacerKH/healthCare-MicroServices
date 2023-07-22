@@ -72,6 +72,33 @@ export class ComplaintService {
     }
 
 
+    getComplaintsByUser(userId: string): Promise<Complaint[] | undefined> {
+        const url = `${this.apiUrl}/complaint/user/${userId}`;
+        return this.http.get<Complaint[]>(url)
+            .toPromise()
+            .then((res) => {
+                return res;
+            })
+            .catch((error) => {
+                console.error('Error fetching complaint:', error);
+                return []; // Return an empty array if there is an error.
+            });      }
+
+
+
+    getComplaintsByMedicine(medicineId: string): Promise<Complaint[] | undefined> {
+        const url = `${this.apiUrl}/complaint/medicine/${medicineId}`;
+        return this.http.get<Complaint[]>(url)
+            .toPromise()
+            .then((res) => {
+                return res
+            })
+            .catch((error) => {
+                console.error('Error fetching appointments:', error);
+                return []; // Return an empty array if there is an error.
+            });
+    }
+
     private handleError(error: any) {
         console.error('An error occurred:', error);
         throw error;
