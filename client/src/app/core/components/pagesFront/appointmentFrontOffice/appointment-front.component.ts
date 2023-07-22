@@ -29,6 +29,12 @@ export class AppointmentFrontComponent implements OnInit {
 
     rowsPerPageOptions = [5, 10, 20];
 
+    appointmentStatus: any[] = [
+        { label: 'scheduled', value: 'scheduled' },
+        { label: 'completed', value: 'completed' },
+        { label: 'cancelled', value: 'cancelled' },
+    ];
+
     constructor(
         private appointmentService: AppointmentService,
         private messageService: MessageService, private _authentification : AuthentificationService
@@ -189,7 +195,7 @@ export class AppointmentFrontComponent implements OnInit {
                     .createAppointment(this.appointment)
                     .then((res) => {
                         if (res && res._id) {
-                            this.appointment._id = res._id;
+                            this.appointment = res;
                             this.appointments.push(this.appointment);
                             this.messageService.add({
                                 severity: 'success',
@@ -291,4 +297,44 @@ export class AppointmentFrontComponent implements OnInit {
         });
 
     }
+
+
+    // Function to sort datetime strings in the format: '2024-08-20T14:30:00.000Z'
+    private formatDateToString(date: Date): string {
+        // Convert the date to the required format: 'yyyy-MM-ddTHH:mm:ss.000Z'
+        const formattedDate = date.toISOString();
+        return formattedDate;
+    }
+
+    // Function to sort datetime strings as dates
+    private sortDatesAsStrings(date1: string, date2: string): number {
+        const date1Obj = new Date(date1);
+        const date2Obj = new Date(date2);
+        return date1Obj.getTime() - date2Obj.getTime();
+    }
+
+    // Function to handle sorting on column header click for datetime columns
+    // For this example, let's assume 'probableStartTime' and 'actualEndTime' are the datetime columns to be sorted.
+    onSort(event: any) {
+        const columnField = event.field;
+
+        if (
+            columnField === 'probableStartTime' ||
+            columnField === 'actualEndTime'
+        ) {
+            // Sort datetime strings as dates
+            this.appointments.sort((a: any, b: any) => {
+                const value1 = this.formatDateToString(a[columnField]);
+                const value2 = this.formatDateToString(b[columnField]);
+                return event.order === -1
+                    ? this.sortDatesAsStrings(value2, value1)
+                    : this.sortDatesAsStrings(value1, value2);
+            });
+        } else {
+            // Sort other columns as usual (assuming they don't need special handling)
+            // Add your usual sorting logic here if needed.
+        }
+    }
+
+
 }

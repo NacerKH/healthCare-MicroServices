@@ -53,6 +53,8 @@
                         <th>Image</th>
                         <th pSortableColumn="pseudo">Name <p-sortIcon field="pseudo"></p-sortIcon></th>
                         <th pSortableColumn="role">Role <p-sortIcon field="role"></p-sortIcon></th>
+                        <th pSortableColumn="role">Email <p-sortIcon field="email"></p-sortIcon></th>
+
                         <th></th>
                     </tr>
                 </ng-template>
@@ -75,6 +77,10 @@
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Role</span>
                             {{user.role}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Email</span>
+                            {{user.email}}
                         </td>
                         <td>
                             <!-- Buttons for editing and deleting a user -->

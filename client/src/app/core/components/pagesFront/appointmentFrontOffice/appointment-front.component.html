@@ -91,19 +91,19 @@
               </div>
               <div class="field">
                 <label for="probableStartTime">Start Time</label>
-                <input type="text" pInputText id="probableStartTime" [(ngModel)]="appointment.probableStartTime" required [ngClass]="{ 'ng-invalid ng-dirty': submitted && !appointment.probableStartTime }" />
+                <input type="datetime-local" pInputText id="probableStartTime" [ngModel]="appointment.probableStartTime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="appointment.probableStartTime=$event" required [ngClass]="{ 'ng-invalid ng-dirty': submitted && !appointment.probableStartTime }" />
                 <small class="ng-dirty ng-invalid" *ngIf="submitted && !appointment.probableStartTime">Start Time is required.</small>
               </div>
               <div class="field">
                 <label for="actualEndTime">End Time</label>
-                <input type="text" pInputText id="actualEndTime" [(ngModel)]="appointment.actualEndTime" required [ngClass]="{ 'ng-invalid ng-dirty': submitted && !appointment.actualEndTime }" />
+                <input type="datetime-local" pInputText id="actualEndTime" [ngModel]="appointment.actualEndTime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="appointment.actualEndTime=$event" required [ngClass]="{ 'ng-invalid ng-dirty': submitted && !appointment.actualEndTime }" />
                 <small class="ng-dirty ng-invalid" *ngIf="submitted && !appointment.actualEndTime">End Time is required.</small>
               </div>
 
               <div class="field">
                 <label for="appointmentStatus">Appointment Status</label>
-                <input type="text" pInputText id="appointmentStatus" [(ngModel)]="appointment.appointmentStatus" required [ngClass]="{ 'ng-invalid ng-dirty': submitted && !appointment.appointmentStatus }" />
-                <small class="ng-dirty ng-invalid" *ngIf="submitted && !appointment.appointmentStatus">Appointment Status is required.</small>
+                <p-dropdown id="appointmentStatus" [options]="appointmentStatus" [(ngModel)]="appointment.appointmentStatus"
+                    placeholder="Select Status appointment"></p-dropdown>
               </div>
               <div class="field">
                 <label for="emailMed">Doctor's Email</label>

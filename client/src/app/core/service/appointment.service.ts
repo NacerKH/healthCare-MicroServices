@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class AppointmentService {
 
-    private apiUrl: string =environment.baseUrl;
+    private apiUrl: string ="http://127.0.0.1:5001/api";
 
     constructor(private http: HttpClient) { }
 
@@ -32,7 +32,7 @@ export class AppointmentService {
 
     createAppointment(appointment: Appointment): Promise<Appointment | undefined> {
         console.log(appointment);
-        return this.http.post<Appointment>(`${this.apiUrl}/v1/appointments/addAppointment`, appointment)
+        return this.http.post<Appointment>(`${this.apiUrl}/v1/addAppointment`, appointment)
           .toPromise()
           .then((res) => {
             return res;
@@ -44,7 +44,7 @@ export class AppointmentService {
       }
 
     updateAppointment(id: string, appointment: Appointment): Promise<Appointment | undefined> {
-        return this.http.put<Appointment>(`${this.apiUrl}/v1/appointments/${id}`, appointment)
+        return this.http.put<Appointment>(`${this.apiUrl}/v1/appointment/${id}`, appointment)
           .toPromise()
           .then((res) => {
             return res;
@@ -75,7 +75,7 @@ export class AppointmentService {
       }
 
     getAppointmentsByUser(userId: string): Promise<Appointment[] | undefined> {
-        
+
         const url = `${this.apiUrl}/v1/appointments/user/${userId}`;
         return this.http.get<Appointment[]>(url)
             .toPromise()
