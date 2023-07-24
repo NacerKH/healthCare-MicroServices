@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
 const uri = process.env.URL_MONGO_DB;
-console.log(uri)
+
+
+mongoose.set('strictQuery', true)
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
@@ -17,3 +19,4 @@ db.once('open', () => {
 });
 
 module.exports = db;
+

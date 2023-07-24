@@ -1,43 +1,45 @@
 version: '3.7'
 
 services:
-  user-management-ms :
-      build : 
-         context : .
-         dockerfile : Dockerfile
-      image : node:lastest
+   user-management-ms:
+      build:
+         context: .
+         dockerfile: Dockerfile
+      image: node:lastest
       container_name: user-management-ms
-      restart : always 
-      stdin_open: true 
-      tty : true
-      command : /usr/src/app/node_modules/.bin/nodemon server.js
-      volumes :
-        - ./:/usr/src/app
-        - /usr/src/app/node_modules
-      ports :
-       - "5008:5000"
+      restart: always
+      stdin_open: true
+      tty: true
+      extra_hosts:
+         - "host.docker.internal:host-gateway"
+      working_dir: /usr/src/app
+
+      command: /usr/src/app/node_modules/.bin/nodemon server.js
+      volumes:
+         - ./:/usr/src/app
+         - /usr/src/app/node_modules
+      ports:
+         - "5000:5000"
       depends_on:
-       - user-management-ms-db
-      env_file : ./config/.env
+         - user-management-ms-db
+      env_file: ./config/.env
       networks:
-       - medest-network
-  user-management-ms-db:
-       image : mongo:latest
-       container_name : user-management-ms-db
-       restart : always 
-       volumes :
-        - dbdata:/data/db
-       networks:
-       - medest-network 
-       ports:
-        - "27018:27017"
-       
+         - medest-network
+   user-management-ms-db:
+      image: mongo:latest
+      container_name: user-management-ms-db
+      restart: always
+      volumes:
+         - dbdata:/data/db
+      networks:
+         - medest-network
+      ports:
+         - "27018:27017"
+
 networks:
-    medest-network:
-       external: true
-       driver : bridge
+   medest-network:
+      external: true
+      driver: bridge
 volumes:
-     dbdata :
-        driver : local   
-       
-         
+   dbdata:
+      driver: local

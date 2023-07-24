@@ -1,0 +1,109 @@
+/* post.component.scss */
+.container {
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Vertical centering */
+  height: 500vh; /* This ensures the container takes up the full viewport height */
+}
+.post-container {
+    margin-bottom: 20px;
+  }
+  
+  .post {
+    border: 2px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: static; /* To position the delete button */
+  }
+  
+  .post-message {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .post-poster {
+    color: #666;
+  }
+  
+  .like-button,
+  .delete-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .like-icon,
+  .delete-icon {
+    margin-left: 5px;
+  }
+  
+  .delete-button {
+    background-color: #ff0000; /* Red color for delete button */
+  }
+  
+  .delete-icon {
+    color: #fff; /* White color for delete icon */
+    font-weight: bold;
+  }
+  
+  .comments {
+    margin-top: 10px;
+  }
+  
+  .comment {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .comment-text {
+    font-size: 16px;
+  }
+  
+  .comment-info {
+    color: #666;
+    font-size: 12px;
+  }
+  
+
+  .content {
+    padding-top: 200px; /* Add enough padding to create space for the banner's height */
+  }
+  .post-input-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .post-input {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    padding: 8px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .post-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .post-button:hover {
+    background-color: #0056b3;
+  }
+  

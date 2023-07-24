@@ -4,8 +4,8 @@ const adminController = require('../controllers/admin/UserController');
 const userController = require('../controllers/user/userController');
 const EmailVerficationController = require('../controllers/user/EmailVerficationController');
 
-const {  requireAuth ,checkUser} = require('../middlewares/AuthentificationMiddleware');
-const   checkEmailVerification = require('../middlewares/MustVerified');
+const { requireAuth, checkUser } = require('../middlewares/AuthentificationMiddleware');
+const checkEmailVerification = require('../middlewares/MustVerified');
 
 const multer = require('multer');
 const upload = multer();
@@ -13,14 +13,16 @@ const upload = multer();
 router.post("/register", authController.signUp);
 router.post("/login", authController.signIn);
 
-
-// Grouped routes with requireAuth middleware
-router.use(requireAuth);
-router.use(checkUser);
 router.post("/email/send-email-verification", EmailVerficationController.sendEmailVerification);
 router.get("/email/verify-email/:verificationToken", EmailVerficationController.verificationEmail);
+router.post("/forget-password", authController.forgetPassword);
+router.post("/reset-password/:token", authController.resetPassword );
+// Grouped routes with requireAuth middleware
+//router.use(requireAuth);
 
-router.use(checkEmailVerification);
+
+router.use(checkUser);
+//router.use(checkEmailVerification);
 router.get("/logout", authController.logout);
 //user:DB
 router.get("/", adminController.getAllUsers);

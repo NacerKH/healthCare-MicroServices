@@ -32,13 +32,13 @@ module.exports.addUser = async (req, res) => {
       picture = await handleFileUpload(req.file, req.body.pseudo);
     }
 
-    const newUser = await  new UserModel({
+    const newUser = await new UserModel({
       pseudo: pseudo,
       email: email,
       password: password,
-      bio : bio?? "",
+      bio: bio ?? "",
       // Add any other required fields xD
-      picture: picture?? "",
+      picture: picture ?? "",
     });
 
     const savedUser = await newUser.save();
@@ -50,6 +50,7 @@ module.exports.addUser = async (req, res) => {
 
 
 module.exports.updateUser = async (req, res) => {
+
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
@@ -59,6 +60,11 @@ module.exports.updateUser = async (req, res) => {
       {
         $set: {
           bio: req.body.bio,
+          pseudo: req.body.pseudo,
+          email: req.body.email,
+          password: req.body.password,
+          picture: req.body.picture,
+          role: req.body.role,
         },
       },
       { new: true, upsert: true, setDefaultsOnInsert: true },

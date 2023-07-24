@@ -8,7 +8,7 @@ module.exports.sendEmailVerification = async (req, res) => {
 console.log(email,"email");
 
     try {
-      if (!email && ! res.locals.user.email) {
+      if (!email && ! res.locals?.user.email) {
         return res.status(400).json({ message: 'Email is required' });
         }
        if (! email && res.locals.user.email) {

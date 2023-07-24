@@ -15,7 +15,7 @@ services:
         - ./:/usr/src/app
         - /usr/src/app/node_modules
       ports :
-       - "5011:5000"
+       - "5001:5000"
       depends_on:
        - appoinement-db
       env_file : ./config/.env
@@ -29,7 +29,7 @@ services:
        volumes :
         - dbdata:/data/db
        ports:
-        - "27020:27017"
+        - "27017:27017"
        networks:
        - medest-network 
        

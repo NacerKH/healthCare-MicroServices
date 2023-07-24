@@ -1,0 +1,57 @@
+<!-- app.component.html -->
+
+<app-forum-banner></app-forum-banner>
+
+<div class="content">
+<div class="container">
+
+<body>
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <div class="post-input-wrapper">
+    <input type="text" #postText formControlName="postContent" class="post-input" placeholder="Write your post here..." (keyup.enter)="onSubmit()">
+      <button type="submit" (click)="forumService.handleRefresh()" (click)='forumService.createPost(postText.value)' class="post-button">Post</button>
+    
+  </div>
+</form>
+<div class="post-container" *ngFor="let post of posts">
+ <div class="post">
+    <h2 class="post-message">{{ post.message }}</h2>
+    <p class="comment-info">Posted by: {{user.pseudo}} | Created on: {{ post.createdAt | date:'HH:mm dd-MM-yyyy' }} | Modified on: {{ post.updatedAt | date:'HH:mm dd-MM-yyyy'}}</p>
+
+    <!-- Display other post information as needed -->
+
+    <!-- Like Button -->
+    <button  (click)="forumService.handleRefresh()" class="like-button" (click)="forumService.likePostById(post._id)">
+      <span class="like-icon">{{ post.likers?.length || 0 }}&#x2764;</span>
+    </button>
+        <!-- delete Button -->
+    <button class="delete-button" (click)="forumService.handleRefresh()" (click)="forumService.deletePostById(post._id)">
+       <span class="delete-icon">&#10006;</span>
+    </button>
+
+<div class="comments">
+      <div class="comment" *ngFor="let comment of post.comments">
+        <p class="comment-text">{{ comment.text }}</p>
+        <p class="comment-info">Posted by: {{ comment.commenterPseudo }} | Posted on: {{ comment.timestamp  | date:'HH:mm dd-MM-yyyy' }}</p>
+        <button class="delete-button" (click)="forumService.handleRefresh()" (click)="forumService.DeletecommentPostById(post._id,comment._id)">
+           <span class="delete-icon">&#10006;</span>
+        </button>
+        
+      
+
+      </div>
+    </div>
+    <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <div class="post-input-wrapper">
+    <input type="text" #commentText formControlName="postContent" class="post-input" placeholder="Write your comment here..." (keyup.enter)="onSubmit()">
+      <button type="submit" (click)="forumService.handleRefresh()" (click)='forumService.CreatecommentPostById(post._id,commentText.value)' class="post-button">Comment</button>
+    
+  </div>
+</form>
+
+     
+  </div>
+</div>
+</body>
+</div>
+</div>
